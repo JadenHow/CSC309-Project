@@ -1,0 +1,5 @@
+/db.sqlite3
+/static/images
+__pycache__/
+*.pyc
+*.DS_Store
