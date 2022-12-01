@@ -8,6 +8,7 @@ from rest_framework import generics, permissions
 from knox.auth import TokenAuthentication
 import datetime
 from users.models import Enrolled, RegisterUser
+from subscriptions.models import SubscriptionInstance
 from users.serializers import EnrolledSerializer
 from . import client
 from rest_framework.pagination import LimitOffsetPagination
@@ -23,7 +24,10 @@ class EnrolAPIView(APIView):
         class_instance = get_object_or_404(ClassInstances, pk=class_id)
 
         if not get_object_or_404(RegisterUser, user=request.user.id).subscribed:
-            return Response({"msg" : "not subscribed"}, status=404) 
+            return Response({"msg" : "not subscribed"}, status=404)
+
+        if get_object_or_404(SubscriptionInstance, user=request.user.id).renewal_date < class_instance.class_date:
+            return Response({"msg" : "subscription will be expired before the class, please enrol after your subscription is renewed or subscribe to a longer subscription"}, status=404)
 
         # print(request.user)
         curr_time = datetime.datetime.now().time()

@@ -11,6 +11,7 @@ import datetime
 from datetime import timedelta
 from users.serializers import PaymentHistorySerializer
 from users.models import RegisterUser
+from rest_framework.pagination import LimitOffsetPagination
 # Create your views here.
 class CreateSubscriptionApiView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -47,7 +48,7 @@ class SubscribeUserApiView(APIView):
 
         if SubscriptionInstance.objects.filter(user=request.user.id).exists():
             return Response({"msg" : f"Already subscribed to a plan"}, status=404)
-        elif curr_user.credit_card_number is None:
+        elif curr_user.credit_card_number == '':
             return Response({"msg" : f"Please enter a credit card for this account"}, status=404)
         
 
@@ -219,7 +220,28 @@ class UpdateUserSubscriptionPlanView(APIView):
             return Response({"msg" : "Successfully edited"}, status=200)
 
         return Response({"msg" : "Should never get here"}, status=404)
-    
+
+
+class ViewSubscriptionPlansView(generics.ListAPIView):
+    pagination_class = LimitOffsetPagination
+    serializer_class = SubscriptionSerializer
+    queryset = '' # idk why I need to initalize an empty string queryset here for it to work, I was just copying code from list all classes and that works fine without this 
+
+    def get(self, request):
+        queryset = Subscription.objects.all()
+
+        print(queryset)
+
+        data = SubscriptionSerializer(queryset, many=True).data
+
+        print(data)
+
+        page = self.paginate_queryset(data)
+        return self.get_paginated_response(page)
+
+        
+
+
 
         
 
