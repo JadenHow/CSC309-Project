@@ -1,0 +1,27 @@
+# Accounts
+
+Account: Represents an account
+PaymentMethod: Represents credit/debit card payment information
+Purchase: Represents a purchase or upcoming payment by a user for a subscription payment.
+
+
+# Studios
+
+Studio: Represents a studio
+StudioImage: Represents an image.
+StudioAmenity: Represents an amenity of a studio.
+
+
+# Classes
+
+Class: Represents a class’ detail attributes (e.g. coach, description, etc.)
+ClassKeyword: Represents a keyword associated with a class.
+ClassOccurrence: Represents a specific occurrence of a class, could be recurring or not. As an example, every Friday at 9:00AM - 10:00AM starting from January 1st, 2023.
+RecurringAttendee: Represents an attendee that is actively signed up for a class’ every occurrence, or at one point was.
+OneTimeAttendee: Represents an attendee who signed up for one class, and what specific date/time.
+OneTimeNonAttendee: Represents a recurring attendee who cancelled out of one specific class occurrence, but still remained a recurring attendee.
+
+
+# Subscriptions
+
+Subscription: Represents a subscription that users can subscribe to for regular payment intervals
