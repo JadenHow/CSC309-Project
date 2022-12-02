@@ -21,7 +21,8 @@ const Login = ({ login, isAuthenticated }) => {
     };
 
     // if (isAuthenticated) {
-    //     return <Navigate to='/' />
+    //     // window.location.reload();
+    //     return <Navigate to='/'/>
     // }
 
     return(
