@@ -1,0 +1,29 @@
+.s {
+    display: flex;
+    align-items: center;
+}
+
+.s :hover {
+    cursor: pointer;
+}
+
+.s-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.s-right {
+    flex: 2;
+}
+
+.s-img {
+    width: 40vh;
+    height: 30vh;
+    object-fit: cover;
+}
