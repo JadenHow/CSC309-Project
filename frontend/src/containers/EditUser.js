@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+// import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import App from '../App';
+// import App from '../App';
 
 const EditUser = ({ isAuthenticated }) => {
     const[formData, setFormData] = useState({
@@ -13,6 +13,8 @@ const EditUser = ({ isAuthenticated }) => {
         phone_number: '',
         avatar: ''
     });
+
+    const { username, password, email, first_name, last_name, phone_number, avatar } = formData;
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
@@ -97,4 +99,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default EditUser(mapStateToProps);
+export default connect(mapStateToProps)(EditUser); //(mapStateToProps);
