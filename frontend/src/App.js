@@ -20,6 +20,7 @@ const App = () => (
           <Route exact path='/signup' element={<Signup />} />
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/studios/:id/' element={<StudioDetail />} />
+          <Route exact path='/edit' element={<EditUser />} />
         </Routes>
       </Layout>
     </Router>

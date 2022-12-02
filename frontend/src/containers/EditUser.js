@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
+import App from '../App';
 
 const EditUser = ({ isAuthenticated }) => {
-    const params = useParams();
     const[formData, setFormData] = useState({
         username: '',
         password: '',
@@ -15,6 +15,28 @@ const EditUser = ({ isAuthenticated }) => {
     });
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    const onSubmit = e => {
+        e.preventDefault();
+
+        fetch(this.props.formAction, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData),
+            method: 'POST'
+        });
+
+        e.setFormData({
+            username: '',
+            password: '',
+            email: '',
+            first_name: '',
+            last_name: '',
+            phone_number: '',
+            avatar: ''
+        });
+    };
 
     return (
         <div>
@@ -69,9 +91,10 @@ const EditUser = ({ isAuthenticated }) => {
         </div>
     )
 };
-
+// https://stackoverflow.com/questions/39153545/how-to-do-post-in-form-submit-using-reactjs-and-pass-the-object-value-into-rest
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
+
 
 export default EditUser(mapStateToProps);
