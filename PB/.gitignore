@@ -1,0 +1,4 @@
+venv/
+torontofitnessclub/db.sqlite3
+torontofitnessclub/media
+__pycache__/
