@@ -5,6 +5,7 @@ import Home from './containers/Home';
 import Signup from './containers/Signup';
 import Login from './containers/Login';
 import Logout from './containers/Logout';
+import EditUser from './containers/EditUser';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -22,6 +23,7 @@ const App = () => (
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/logout' element={<Logout />} />
           <Route exact path='/studios/:id/' element={<StudioDetail />} />
+          <Route exact path='/edit' element={<EditUser />} />
         </Routes>
       </Layout>
     </Router>
