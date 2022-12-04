@@ -1,28 +1,19 @@
-.s {
+.sd {
     padding-top: 1vh;
     padding-top: 1vh;
 }
 
-.s-border {
+.sd-border {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     border-radius: 5px;
     border-style: groove;
 }
 
-.s-button {
-    background-color: black;
-    color: white;
-    font-size: 15px;
-    padding: 10px 60px;
-    border-radius: 5px;
-    margin: 0px 0px;
-    cursor: pointer;
-}
-
-.s-left {
+.sd-left {
     flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
@@ -31,12 +22,14 @@
     padding-bottom: 1%;
 }
 
-.s-right {
+.sd-right {
     flex: 2;
 }
 
-.s-img {
-    width: 40vh;
-    height: 30vh;
+.sd-img {
+    width: 60vh;
+    height: 40vh;
     object-fit: cover;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }

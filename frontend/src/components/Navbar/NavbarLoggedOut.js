@@ -9,7 +9,7 @@ const Navbar = ({isAuthenticated}) => {
     // const [loggedIn, setLoggedIn] = useState(isAuthenticated);
     // console.log(localStorage.getItem('access'));
     // console.log(localStorage.getItem('access') != null);
-    console.log(isAuthenticated);
+    // console.log(isAuthenticated);
     return (
         <>
             <Nav extendNavbar={extendNavbar}>

@@ -20,15 +20,14 @@ const Login = ({ login, isAuthenticated }) => {
         login(username, password);
     };
 
-    // if (isAuthenticated) {
-    //     // window.location.reload();
-    //     return <Navigate to='/'/>
-    // }
+    if (isAuthenticated) {
+        return <Navigate to='/'/>
+    }
 
     return(
         <div className='container mt-5'>
-            <h1>Sign In</h1>
-            <p>Sign into your Account</p>
+            <h1>Login</h1>
+            <p>Login to your Account</p>
             <form onSubmit={e => onSubmit(e)}>
                 <div className='form-group'>
                     <input
@@ -54,6 +53,7 @@ const Login = ({ login, isAuthenticated }) => {
                     />
                 </div>
                 <button className='btn btn-primary' type='submit'>Login</button>
+                {/* { !errorMsg || <h4 style={{ color: "red" }}>Incorrect Combination</h4>} */}
             </form>
             <p className='mt-3'>
                 Don't have an account? <Link to='/signup'>Sign Up</Link>

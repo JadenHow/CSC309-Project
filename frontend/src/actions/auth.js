@@ -2,6 +2,8 @@ import axios from 'axios';
 import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
+    SIGNUP_SUCCESS,
+    SIGNUP_FAIL,
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
     LOGOUT_SUCCESS,
@@ -35,7 +37,7 @@ export const login = (username, password) => async dispatch => {
         // console.log(body)
         try {
             const res = await axios.post(`http://localhost:8000/users/login/`, body, config);
-            console.log(res.data)
+            // console.log(res.data)
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data
@@ -54,31 +56,70 @@ export const login = (username, password) => async dispatch => {
     }
 };
 
+
 export const logout = () => async dispatch => {
-    console.log('HI')
     if (localStorage.getItem('access')) {
         const config = {
             headers: {
-                'Authorization': `Token ${localStorage.getItem('access')}`,
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('access')}`
             }
         };
-        console.log('HI')
+
         try {
             const res = await axios.post(`http://localhost:8000/users/logout/`, {}, config);
-
             dispatch({
-                type: LOGOUT_SUCCESS
+                type: LOGOUT_SUCCESS,
+                payload: res.data
             });
 
         } catch (err) {
             console.log('Fail')
             dispatch({
                 type: LOGOUT_FAIL
-            });
+            })
         }
     } else {
         dispatch({
             type: LOGOUT_FAIL
+        });
+    }
+};
+
+export const signup = (username, password, email, first_name, last_name, phone_number, credit_card_number) => async dispatch => {
+    if (!localStorage.getItem('access')) {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+
+        const body = {
+            "username": username,
+            "password": password,
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "phone_number": phone_number,
+            "credit_card_number": credit_card_number
+        }
+        console.log(body)
+        try {
+            const res = await axios.post(`http://localhost:8000/users/register/user/`, body, config);
+            console.log(res.data)
+            dispatch({
+                type: SIGNUP_SUCCESS,
+                payload: res.data
+            });
+        } catch (err) {
+            console.log(err)
+            dispatch({
+                type: SIGNUP_FAIL
+            })
+        }
+    } else {
+        dispatch({
+            type: SIGNUP_FAIL
         });
     }
 };

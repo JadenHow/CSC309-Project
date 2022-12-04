@@ -1,6 +1,8 @@
 import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
+    SIGNUP_SUCCESS,
+    SIGNUP_FAIL,
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
     LOGOUT_SUCCESS,
@@ -13,7 +15,7 @@ const initialState = {
     user: null
 };
 
-export default function (state = initialState, action) {
+export default function func(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
@@ -44,6 +46,7 @@ export default function (state = initialState, action) {
                 isAuthenticated: false,
             }
         case LOGOUT_SUCCESS:
+            console.log("Yes")
             localStorage.removeItem('access');
             return {
                 ...state,
@@ -52,13 +55,19 @@ export default function (state = initialState, action) {
                 user: null
             }
         case LOGOUT_FAIL:
-            console.log("HIHI")
-            localStorage.removeItem('access');
+            console.log("No")
             return {
                 ...state,
-                access: null,
+            }
+        case SIGNUP_SUCCESS:
+            return {
+                ...state,
                 isAuthenticated: false,
-                user: null
+            }
+        case SIGNUP_FAIL:
+            return {
+                ...state,
+                isAuthenticated: false,
             }
         default:
             return state

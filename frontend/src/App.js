@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './containers/Home';
 import Signup from './containers/Signup';
 import Login from './containers/Login';
+import Logout from './containers/Logout';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -19,6 +20,7 @@ const App = () => (
           <Route exact path='/' element={<Home />} />
           <Route exact path='/signup' element={<Signup />} />
           <Route exact path='/login' element={<Login />} />
+          <Route exact path='/logout' element={<Logout />} />
           <Route exact path='/studios/:id/' element={<StudioDetail />} />
         </Routes>
       </Layout>
