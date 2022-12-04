@@ -5,6 +5,7 @@ class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
         fields = [
+            'pk',
             'studio',
             'name',
             'description',
@@ -26,6 +27,7 @@ class ClassInstancesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassInstances
         fields = [
+            'pk',
             'studio',
             'parent_class',
             'name',
