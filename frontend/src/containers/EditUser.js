@@ -50,6 +50,7 @@ const EditUser = ({ isAuthenticated }) => {
                             className='form-control'
                             type='text'
                             name='username'
+                            placeholder='username'
                             value={username}
                             onChange={e => onChange(e)}
                         />
@@ -59,6 +60,7 @@ const EditUser = ({ isAuthenticated }) => {
                             className='form-control'
                             type='password'
                             name='password'
+                            placeholder='password'
                             value={password}
                             onChange={e => onChange(e)}
                         />
@@ -68,6 +70,7 @@ const EditUser = ({ isAuthenticated }) => {
                             className='form-control'
                             type='email'
                             name='email'
+                            placeholder='email'
                             value={email}
                             onChange={e => onChange(e)}
                         />
@@ -77,6 +80,7 @@ const EditUser = ({ isAuthenticated }) => {
                             className='form-control'
                             type='text'
                             name='first_name'
+                            placeholder='first name'
                             value={first_name}
                             onChange={e => onChange(e)}
                         />
@@ -86,15 +90,19 @@ const EditUser = ({ isAuthenticated }) => {
                             className='form-control'
                             type='text'
                             name='last_name'
+                            placeholder='last name'
                             value={last_name}
                             onChange={e => onChange(e)}
                         />
                     </div>
                     <div>
+                        Avatar:
                         <input
                             className='form-control'
-                            type='image'
+                            type='file'
                             name='avatar'
+                            placeholder='avatar'
+                            alt='avatar'
                             value={avatar}
                             onChange={e => onChange(e)}
                         />
