@@ -1,6 +1,6 @@
 .s {
-    padding-top: 1vh;
-    padding-top: 1vh;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
 }
 
 .s-border {
@@ -39,4 +39,8 @@
     width: 40vh;
     height: 30vh;
     object-fit: cover;
+}
+
+.s-content {
+    padding-left: 1%;
 }
