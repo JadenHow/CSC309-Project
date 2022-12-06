@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./classdetail.css";
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 
 const ClassDetail = ({ pk, name, description, coach, keywords, capacity, currently_enrolled, class_date, start_time, end_time, isAuthenticated }) => {
     const params = useParams();
+    const [msg, setMsg] = useState("")
     
     function enrollClass(params, pk, isAuthenticated) {
         if (isAuthenticated) {
@@ -18,14 +19,15 @@ const ClassDetail = ({ pk, name, description, coach, keywords, capacity, current
 
             axios.post(`http://localhost:8000/studios/${params.id}/classes/${pk}/enrol/`, {}, config)
                 .then(res => {
-                    window.alert(res)
+                    setMsg(res)
                 })
                 .catch(err => {
-                    console.log(err)
-                    window.alert(err)
+                    // console.log(err.response.data.msg)
+                    // window.alert(err.response.data.msg)
+                    setMsg(err.response.data.msg)
                 })
         } else {
-            window.alert("Log in to enroll.")
+            setMsg("Please login to enrol.")
         }
     };
 
@@ -42,6 +44,7 @@ const ClassDetail = ({ pk, name, description, coach, keywords, capacity, current
                 <h3>Start Time: {start_time}</h3>
                 <h3>End Time: {end_time}</h3>
                 <button onClick={() => enrollClass(params, pk, isAuthenticated)}>Enroll</button>
+                <h3>{msg}</h3>
             </div>
         </div>
     )
