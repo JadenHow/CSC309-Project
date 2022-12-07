@@ -49,6 +49,7 @@ const SubscriptionList = () => {
     // } else {
         return (
             <div>
+                <h3>Subscription Options:</h3>
                 <div>
                     {posts1.map((posts1, i) => (
                         <Subscription key_num={i} price={posts1.price} occurance={posts1.occurance}/>
