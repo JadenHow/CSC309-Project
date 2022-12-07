@@ -162,3 +162,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
+
+REST_KNOX = {
+    'TOKEN_TTL': None,  # will create tokens that never expire
+}

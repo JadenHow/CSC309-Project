@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Hits, Highlight, Pagination, Configure } from 'react-instantsearch-hooks-web';
 import "./studio.css";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import ClassDetailComponents from '../components/ClassDetail'
+import "./studiosearch.css";
 
 const searchClient = algoliasearch('2SE5TN8IRT', 'aa72026cb29188c2018f9011071e18e5');
 
@@ -39,7 +42,7 @@ function AmenityHit({ hit }) {
     );
 }
 
-function ClassStudioHit({ hit }) {
+function ClassInstanceHit({ hit }) {
     const split_studio = hit.studio.split("(")
     // console.log(split_studio[1][0])
     const navigate = useNavigate();
@@ -85,17 +88,161 @@ const AmenitiesSearch = () => {
     )
 };
 
-const ClassStudioSearch = () => {
+const ClassInstanceSearch = () => {
+    const [posts, setPosts] = useState([])
+
+    function class_search(search, start_date, end_date, start_time, end_time) {
+        axios.get(`http://localhost:8000/classes/search/?q=${search}&start=${start_date}&end=${end_date}&starttime=${start_time}&endttime=${end_time}`)
+            .then(res => {
+                setPosts(res.data.results)
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    };
+
+    const [searchData, setSearchData] = useState({
+        search: '',
+        start_date: '',
+        end_date: '',
+        start_time: '',
+        end_time: '',
+    });
+
+    const { search, start_date, end_date, start_time, end_time } = searchData;
+
+    const onChange = e => setSearchData({ ...searchData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        class_search(search, start_date, end_date, start_time, end_time);
+    };
     return (
-        <InstantSearch searchClient={searchClient} indexName="backend_Class" >
-            <Configure hitsPerPage={10} />
-            <br />
-            Search for Studios: <SearchBox />
-            <Hits hitComponent={ClassStudioHit} />
-            <Pagination></Pagination>
-        </InstantSearch>
+        <div>
+            <div className='form'>
+                <h1>Search for classes:</h1>
+                <form onSubmit={e => onSubmit(e)}>
+                    <div className='form-group'>
+                        <input
+                            className='class-instance-search-bar'
+                            type='search'
+                            placeholder='Search'
+                            name='search'
+                            value={search}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <input
+                            className='search-control'
+                            type='start_date'
+                            placeholder='Start Date (optional) In this format: 2022-12-20'
+                            name='start_date'
+                            value={start_date}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <input
+                            className='search-control'
+                            type='end_date'
+                            placeholder='End date (optional) In this format: 2022-12-22'
+                            name='end_date'
+                            value={end_date}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <input
+                            className='search-control'
+                            type='start_time'
+                            placeholder='Start Time (optional) In this format: 01:55:00'
+                            name='start_time'
+                            value={start_time}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <input
+                            className='search-control'
+                            type='end_time'
+                            placeholder='End Time (optional) In this format: 02:55:00'
+                            name='end_time'
+                            value={end_time}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <button className='btn btn-primary' type='submit'>Search</button>
+                </form>
+            </div>
+            <div>
+                {posts.map((posts, i) => (
+                    <ClassDetailComponents key={i} pk={posts.objectID} name={posts.name} description={posts.description} coach={posts.coach} keywords={posts.keywords} capacity={posts.capacity} currently_enrolled={posts.currently_enrolled} class_date={posts.class_date} start_time={posts.start_time} end_time={posts.end_time} />
+                ))}
+            </div>
+        </div>
     )
 };
 
 
-export default ClassStudioSearch;
+
+const ClassStudioSearch = () => {
+
+    const [posts, setPosts] = useState([])
+    const current_url = window.location.pathname
+
+    function class_studio_search(search, studio_id) {
+        axios.get(`http://localhost:8000/studios/search/?q=${search}&studio=${studio_id}`)
+            .then(res => {
+                setPosts(res.data.results)
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    };
+
+    const [searchData, setSearchData] = useState({
+        search: '',
+    });
+
+    const { search } = searchData;
+
+    const onChange = e => setSearchData({ ...searchData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        class_studio_search(search, current_url.split('/')[2]);
+    };
+
+    return (
+        <div>
+            <div className='container mt-5'>
+                <h1>Search for classes:</h1>
+                <form onSubmit={e => onSubmit(e)}>
+                    <div className='form-group'>
+                        <input
+                            className='form-control'
+                            type='search'
+                            placeholder='Search'
+                            name='search'
+                            value={search}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <button className='btn btn-primary' type='submit'>Search</button>
+                </form>
+            </div>
+            <div>
+                {posts.map((posts, i) => (
+                    <ClassDetailComponents key={i} pk={posts.pk} name={posts.name} description={posts.description} coach={posts.coach} keywords={posts.keywords} capacity={posts.capacity} currently_enrolled={posts.currently_enrolled} class_date={posts.class_date} start_time={posts.start_time} end_time={posts.end_time} />
+                ))}
+            </div>
+        </div>
+    )
+};
+
+export default ClassInstanceSearch;

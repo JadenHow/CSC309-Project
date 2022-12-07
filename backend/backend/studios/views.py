@@ -126,32 +126,33 @@ class StudioSearchAPIView(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         query = request.GET.get('q')
-        studios = request.GET.get('studios')
-        amenities = request.GET.get('amenities')
-        classes = request.GET.get('classes')
+        studio = request.GET.get('studio')
+        # amenities = request.GET.get('amenities')
+        # classes = request.GET.get('classes')
         if not query:
             return Response('', status=400)
-        
-        studio_results = client.perform_search(query, 'backend_Studio')
-        studio_amenities_results = client.perform_search(query, 'backend_StudioAmenities')
-        classes_results = client.perform_search(query, 'backend_Class')
 
-        if studios:
-            studio_results = client.perform_search(studios, 'backend_Studio')
-        if amenities:
-            studio_amenities_results = client.perform_search(amenities, 'backend_StudioAmenities')
-        if classes:
-            classes_results = client.perform_search(classes, 'backend_Class')
+        # studio_results = client.perform_search(query, 'backend_Studio')
+        # studio_amenities_results = client.perform_search(query, 'backend_StudioAmenities')
+        # classes_results = client.perform_search(query, 'backend_Class')
+    
+        # if studios:
+        #     studio_results = client.perform_search(studios, 'backend_Studio')
+        # if amenities:
+        #     studio_amenities_results = client.perform_search(amenities, 'backend_StudioAmenities')
+        # if classes:
+        #     classes_results = client.perform_search_studio_class(classes)
+        classes_results = client.perform_search_studio_class(query, studio)
         
-        all_data = []
-        for data in studio_results['hits']:
-            all_data.append(data)
+        # all_data = []
+        # for data in studio_results['hits']:
+        #     all_data.append(data)
         
-        for data in studio_amenities_results['hits']:
-            all_data.append(data)
+        # for data in studio_amenities_results['hits']:
+        #     all_data.append(data)
         
-        for data in classes_results['hits']:
-            all_data.append(data)
+        # for data in classes_results['hits']:
+        #     all_data.append(data)
         
-        page = self.paginate_queryset(all_data)
+        page = self.paginate_queryset(classes_results['hits'])
         return self.get_paginated_response(page)
