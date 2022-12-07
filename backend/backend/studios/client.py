@@ -17,3 +17,10 @@ def perform_search(query, index_name, **kwargs):
     index = get_index(index_name)
     results = index.search(query)
     return results
+
+def perform_search_studio_class(query, id):
+    index = get_index('backend_ClassInstances')
+    results = index.search(query, {
+        'filters': 'studio:"Studio object (' + str(id) + ')"'
+    })
+    return results

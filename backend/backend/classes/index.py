@@ -21,5 +21,6 @@ class ClassInstancesIndex(AlgoliaIndex):
         'end_time',
     ]
     settings = {
-        'searchableAttributes': ['name', 'coach', 'class_date_timestamp', 'start_time_timestamp']
+        'searchableAttributes': ['name', 'coach', 'class_date_timestamp', 'start_time_timestamp'],
+        'attributesForFaceting': ['studio']
     }

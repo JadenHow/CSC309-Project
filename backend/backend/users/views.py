@@ -101,11 +101,13 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 class UserEnrolledListAPIView(generics.ListAPIView):
     pagination_class = LimitOffsetPagination
     serializer_class = ClassInstancesSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = ''
 
     def get(self, request):
         user = request.user
-        queryset = Enrolled.objects.all().filter(user=user)
+        queryset = Enrolled.objects.all().filter(user=user.id)
         data = EnrolledSerializer(queryset, many=True).data
 
         ls = []
@@ -113,7 +115,8 @@ class UserEnrolledListAPIView(generics.ListAPIView):
             class_instane_id = obj["class_instance"]
             class_instance_obj = ClassInstances.objects.get(pk=class_instane_id)
             instance_data = {
-                        'studio': class_instance_obj.pk,
+                        'pk': class_instane_id,
+                        'studio': class_instance_obj.studio.name,
                         'name': class_instance_obj.name,
                         'description': class_instance_obj.description,
                         'coach': class_instance_obj.coach,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { signup } from '../actions/auth';
+import { signup } from '../../actions/auth';
 
 
 const Signup = ({ signup, isAuthenticated }) => {

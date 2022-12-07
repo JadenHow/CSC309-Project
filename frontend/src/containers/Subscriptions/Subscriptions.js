@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Subscription from '../components/SubscriptionDetail'
+import Subscription from '../../components/SubscriptionComponents/SubscriptionDetail'
 import { Pagination } from 'antd';
 
 const SubscriptionList = () => {

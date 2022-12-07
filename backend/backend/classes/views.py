@@ -71,9 +71,9 @@ class DropAPIView(APIView):
         if not ClassInstances.objects.filter(parent_class=class_id, studio=studio_id).exists:
             return Response({"msg" : "Class doesn't exist"}, status=404)
 
-        
+        print(class_id, request.user.id)
         enrolled_instance = Enrolled.objects.filter(class_instance=class_id, user = request.user.id)
-
+        print(enrolled_instance)
         if enrolled_instance.exists():
             enrolled_instance.delete()
 
@@ -83,11 +83,11 @@ class DropAPIView(APIView):
             class_instance.save() 
 
             return Response({
-                "Successfully dropped": "yay" 
+                "msg": "Successfully dropped" 
             }, status=200)
         else: 
             return Response({
-                "Not enrolled": "Not enrolled" 
+                "msg": "Not enrolled" 
             }, status=404)
 
 
@@ -110,6 +110,75 @@ class ClassSearchAPIView(generics.ListAPIView):
 
 class_search_view = ClassSearchAPIView.as_view()
 
+class EnrolMultipleAPIView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes= [permissions.IsAuthenticated]
+
+    def post(self, request, studio_id, class_id):
+        studio = get_object_or_404(Studio, pk=studio_id)
+        class_instance = get_object_or_404(ClassInstances, pk=class_id)
+
+        if not get_object_or_404(RegisterUser, user=request.user.id).subscribed:
+            return Response({"msg" : "not subscribed"}, status=404)
+
+        if get_object_or_404(SubscriptionInstance, user=request.user.id).renewal_date < class_instance.class_date:
+            return Response({"msg" : "subscription will be expired before the class, please enrol after your subscription is renewed or subscribe to a longer subscription"}, status=404)
+
+        curr_time = datetime.datetime.now().time()
+        today = datetime.date.today()
+
+        all_class_instances = ClassInstances.objects.filter(parent_class = class_instance.parent_class)
+
+        for class_instance in all_class_instances:
+            # Can't already be enrolled
+            if Enrolled.objects.filter(class_instance = class_instance.pk, user = request.user.id).exists():
+                continue
+            if studio == class_instance.studio and class_instance.currently_enrolled < class_instance.capacity and class_instance.class_date >= today:
+                if class_instance.class_date == today and class_instance.start_time <= curr_time:
+                    continue
+            if get_object_or_404(SubscriptionInstance, user=request.user.id).renewal_date < class_instance.class_date:
+                continue
+            
+            data = {
+                'user': request.user.id,
+                'class_instance': class_instance.pk
+            }
+
+            serializer = EnrolledSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                class_instance.currently_enrolled += 1
+                class_instance.save()
+
+        return Response({
+            "msg": "Successfully enrolled to all future occurrences" 
+        }, status=200)
+
+class DropMultipleAPIView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, studio_id, class_id):
+        if not ClassInstances.objects.filter(parent_class=class_id, studio=studio_id).exists:
+            return Response({"msg" : "Class doesn't exist"}, status=404)
+        
+        class_instance = get_object_or_404(ClassInstances, pk=class_id)
+
+        all_class_instances = ClassInstances.objects.filter(parent_class = class_instance.parent_class)
+
+        for class_instance in all_class_instances:
+            enrolled_instance = Enrolled.objects.filter(class_instance=class_instance.pk, user = request.user.id)
+        
+            if enrolled_instance.exists():
+                enrolled_instance.delete()
+
+                # subract currently enrolled
+                class_instance_object = get_object_or_404(ClassInstances, pk=class_instance.pk)
+                class_instance_object.currently_enrolled -= 1
+                class_instance_object.save() 
+
+        return Response({
+            "msg": "Successfully dropped all future occurrences" 
+        }, status=200)
 
 # class CancelAllClasses(APIView):
 #     authentication_classes = [TokenAuthentication]
