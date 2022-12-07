@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Hits, Highlight, Pagination, Configure } from 'react-instantsearch-hooks-web';
-import "./studio.css";
+import "../StudioComponents/studio.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import ClassDetailComponents from '../components/ClassDetail'
+import ClassDetailComponents from '../../components/ClassComponents/ClassDetail'
 import "./studiosearch.css";
 
 const searchClient = algoliasearch('2SE5TN8IRT', 'aa72026cb29188c2018f9011071e18e5');

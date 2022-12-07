@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./classdetail.css";
+import "../ClassComponents/classdetail.css";
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { useParams } from "react-router-dom";

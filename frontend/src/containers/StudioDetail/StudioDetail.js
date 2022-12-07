@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import StudioDetailComponents from '../components/StudioDetail'
-import ClassDetailComponents from '../components/ClassDetail'
+import StudioDetailComponents from '../../components/StudioDetailComponents/StudioDetail'
+import ClassDetailComponents from '../../components/ClassComponents/ClassDetail'
 import { useParams } from "react-router-dom";
 
 const StudioDetail = () => {

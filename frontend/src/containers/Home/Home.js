@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Studio from '../components/Studio'
+import Studio from '../../components/StudioComponents/Studio'
 import { Pagination } from 'antd';
 
 function Home() {

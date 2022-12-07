@@ -1,7 +1,4 @@
 import React from 'react'
-import Logo from '../logo512.png'
-import { useNavigate } from 'react-router-dom';
-
 
 // user = models.OneToOneField(User, on_delete=models.CASCADE) # A user can only be on one subscription plan at a time
 // parent_subscription = models.ForeignKey('subscriptions.Subscription', on_delete=models.CASCADE)

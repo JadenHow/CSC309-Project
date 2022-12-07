@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ClassScheduleComponents from '../components/ClassSchedule'
+import ClassScheduleComponents from '../../components/ClassScheduleComponents/ClassSchedule'
 import { Pagination } from 'antd';
 import { connect } from 'react-redux';
 
