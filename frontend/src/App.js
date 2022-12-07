@@ -7,6 +7,7 @@ import Login from './containers/Login';
 import Logout from './containers/Logout';
 import EditUser from './containers/EditUser';
 import StudioSearch from './components/StudioSearch';
+import SubscriptionList from './containers/Subscriptions';
 import ClassSchedule from './containers/ClassSchedule';
 
 import { Provider } from 'react-redux';
@@ -14,6 +15,7 @@ import store from './store';
 
 import Layout from './hocs/Layout';
 import StudioDetail from './containers/StudioDetail';
+//import Subscription from './components/SubscriptionDetail';
 
 const App = () => (
   <Provider store={store}>
@@ -26,6 +28,7 @@ const App = () => (
           <Route exact path='/logout' element={<Logout />} />
           <Route exact path='/studios/:id/' element={<div><StudioDetail /><StudioSearch /></div>} />
           <Route exact path='/edit' element={<EditUser />} />
+          <Route exact path='/subscriptions' element={<SubscriptionList />} />
           <Route exact path='/schedule' element={<ClassSchedule />} />
         </Routes>
       </Layout>

@@ -45,48 +45,68 @@ const EditUser = ({ isAuthenticated }) => {
             <h1>Edit User</h1>
             <form onSubmit={e => onSubmit(e)}>
                 <div className='form-group'>
-                    <input
-                        className='form-control'
-                        type='text'
-                        name='username'
-                        value={username}
-                        onChange={e => onChange(e)}
-                    />
-                    <input
-                        className='form-control'
-                        type='password'
-                        name='password'
-                        value={password}
-                        onChange={e => onChange(e)}
-                    />
-                    <input
-                        className='form-control'
-                        type='email'
-                        name='email'
-                        value={email}
-                        onChange={e => onChange(e)}
-                    />
-                    <input
-                        className='form-control'
-                        type='text'
-                        name='first_name'
-                        value={first_name}
-                        onChange={e => onChange(e)}
-                    />
-                    <input
-                        className='form-control'
-                        type='text'
-                        name='last_name'
-                        value={last_name}
-                        onChange={e => onChange(e)}
-                    />
-                    <input
-                        className='form-control'
-                        type='image'
-                        name='avatar'
-                        value={avatar}
-                        onChange={e => onChange(e)}
-                    />
+                    <div>
+                        <input
+                            className='form-control'
+                            type='text'
+                            name='username'
+                            placeholder='username'
+                            value={username}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            className='form-control'
+                            type='password'
+                            name='password'
+                            placeholder='password'
+                            value={password}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            className='form-control'
+                            type='email'
+                            name='email'
+                            placeholder='email'
+                            value={email}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            className='form-control'
+                            type='text'
+                            name='first_name'
+                            placeholder='first name'
+                            value={first_name}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            className='form-control'
+                            type='text'
+                            name='last_name'
+                            placeholder='last name'
+                            value={last_name}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
+                        Avatar:
+                        <input
+                            className='form-control'
+                            type='file'
+                            name='avatar'
+                            placeholder='avatar'
+                            alt='avatar'
+                            value={avatar}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
                 </div>
                 <button className='btn btn-primary' type='submit'>Save</button>
             </form>
