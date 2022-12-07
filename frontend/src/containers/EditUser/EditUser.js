@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { Link, Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import axios from 'axios';
 // import App from '../App';
@@ -14,7 +14,7 @@ const EditUser = ({ isAuthenticated }) => {
         phone_number: '',
         avatar: '',
         creditcard: ''}
-    const[formData, setFormData] = useState('');
+    const[formData, setFormData] = useState(emptyState);
 
     const { username, password, email, first_name, last_name, phone_number, avatar, creditcard } = formData;
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,20 +32,14 @@ const EditUser = ({ isAuthenticated }) => {
                 method: 'POST'
             });
             console.log(response);
+            if (response.stats === 200) {
+                setFormData(emptyState);
+            }
+            //return <Navigate to='/profile/'/>
         } catch (err) {
             console.log(err)
         }
-        setFormData('');
-        // e.setFormData({
-        //     username: '',
-        //     password: '',
-        //     email: '',
-        //     first_name: '',
-        //     last_name: '',
-        //     phone_number: '',
-        //     avatar: '',
-        //     creditcard: ''
-        // });
+        //setFormData('');
     };
 
     return (

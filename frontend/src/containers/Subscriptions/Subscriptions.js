@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Subscription from '../../components/SubscriptionComponents/SubscriptionDetail'
 import { Pagination } from 'antd';
+import "./subscriptions.css"
 
 const SubscriptionList = () => {
     const [loading1, setLoading1] = useState(true)
@@ -52,15 +53,14 @@ const SubscriptionList = () => {
         return (
             <div>
                 <h3 className='title'>Subscription Plan Options:</h3>
-                <div>
+                <div className='subs'>
                     {posts1.map((posts1, i) => (
                         <Subscription key_num={i} price={posts1.price} occurance={posts1.occurance}/>
                     ))}
-                </div>
-                <br/>
-            <Pagination
-                defaultCurrent={1}
-                defaultPageSize={10} //default size of page
+                </div>               
+            <Pagination className='page'
+                defaultCurrent={50}
+                defaultPageSize={50} //default size of page
                 onChange={handleChange}
                 total={count} //total number of card data available
             />

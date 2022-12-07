@@ -1,4 +1,7 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import "./subscriptiondetail.css";
 
 // user = models.OneToOneField(User, on_delete=models.CASCADE) # A user can only be on one subscription plan at a time
 // parent_subscription = models.ForeignKey('subscriptions.Subscription', on_delete=models.CASCADE)
@@ -6,13 +9,40 @@ import React from 'react'
 // cancelled = models.BooleanField(default=False)
 const Subscription = ({key_num, price, occurance }) => {
     const alternatingColor = ['#3bedb7', '#FFFFFF']
+    const navigate = useNavigate();
+    const handleClick = async() => {
+        // try {
+        //     let response = await fetch(`http://localhost:8000/subscriptions/${key_num}/subscribe/`, {
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         method: 'POST'
+        //     });
+        //     console.log(response);
+        //     message = response.statusText;
+        //     //return <Navigate to='/profile/'/>
+        // } catch (err) {
+        //     console.log(err)
+        // }
+        axios.post(`http://localhost:8000/subscriptions/${key_num}/subscribe/`)
+            .then(res => {
+                console.log(res);
+                message = res.data["detail"];
+            })
+
+        //navigate(`/subscriptions`);
+    }
+    var message = "";
 
     return (
-        <div className="s">
+        <div className="sub-box">
+            <p className='message'>{message}</p>
             <div className='s-border' style={{ backgroundColor: alternatingColor[key_num % alternatingColor.length] }}>
                 <div className="s-right">
                     <h2 className="s-title">Price: ${price}</h2>
                     <h3 className="s-title">Billing Cycle: {occurance}</h3>
+                    <button type='button' onClick={handleClick} className="s-button">{"Subscribe"}</button>
                 </div>
             </div>
         </div>
