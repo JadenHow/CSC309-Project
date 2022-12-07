@@ -1,43 +1,51 @@
 import React, { useState } from 'react';
 // import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
+// import axios from 'axios';
 // import App from '../App';
 
 const EditUser = ({ isAuthenticated }) => {
-    const[formData, setFormData] = useState({
+    const emptyState = {
         username: '',
         password: '',
         email: '',
         first_name: '',
         last_name: '',
         phone_number: '',
-        avatar: ''
-    });
+        avatar: '',
+        creditcard: ''}
+    const[formData, setFormData] = useState('');
 
-    const { username, password, email, first_name, last_name, phone_number, avatar } = formData;
+    const { username, password, email, first_name, last_name, phone_number, avatar, creditcard } = formData;
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
+    const onSubmit = async(e) => {
         e.preventDefault();
-
-        fetch(this.props.formAction, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData),
-            method: 'POST'
-        });
-
-        e.setFormData({
-            username: '',
-            password: '',
-            email: '',
-            first_name: '',
-            last_name: '',
-            phone_number: '',
-            avatar: ''
-        });
+        console.log("submitted", formData);
+        try {
+            let response = await fetch(`http://localhost:8000/users/edit/`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+                method: 'POST'
+            });
+            console.log(response);
+        } catch (err) {
+            console.log(err)
+        }
+        setFormData('');
+        // e.setFormData({
+        //     username: '',
+        //     password: '',
+        //     email: '',
+        //     first_name: '',
+        //     last_name: '',
+        //     phone_number: '',
+        //     avatar: '',
+        //     creditcard: ''
+        // });
     };
 
     return (
@@ -96,6 +104,16 @@ const EditUser = ({ isAuthenticated }) => {
                         />
                     </div>
                     <div>
+                        <input
+                            className='form-control'
+                            type='tel'
+                            name='phone_number'
+                            placeholder='phone number'
+                            value={phone_number}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
                         Avatar:
                         <input
                             className='form-control'
@@ -104,6 +122,17 @@ const EditUser = ({ isAuthenticated }) => {
                             placeholder='avatar'
                             alt='avatar'
                             value={avatar}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            className='form-control'
+                            type='number'
+                            name='creditcard'
+                            placeholder='credit card number'
+                            alt='creditcard'
+                            value={creditcard}
                             onChange={e => onChange(e)}
                         />
                     </div>
