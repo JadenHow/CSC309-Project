@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-// import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import axios from 'axios';
 // import App from '../App';
+import "./edituser.css";
 
 const EditUser = ({ isAuthenticated }) => {
     const emptyState = {
@@ -14,7 +15,7 @@ const EditUser = ({ isAuthenticated }) => {
         phone_number: '',
         avatar: '',
         creditcard: ''}
-    const[formData, setFormData] = useState('');
+    const[formData, setFormData] = useState(emptyState);
 
     const { username, password, email, first_name, last_name, phone_number, avatar, creditcard } = formData;
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,38 +23,40 @@ const EditUser = ({ isAuthenticated }) => {
     const onSubmit = async(e) => {
         e.preventDefault();
         console.log("submitted", formData);
+
         try {
             let response = await fetch(`http://localhost:8000/users/edit/`, {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('access')}`
                 },
                 body: JSON.stringify(formData),
-                method: 'POST'
+                method: 'PATCH'
             });
             console.log(response);
+            if (response.status === 200) {
+                console.log("success")
+                setFormData(emptyState);
+                //return <Navigate to='/profile/'/>;
+                window.location.reload(false);
+            } else {
+                console.log("some error occurred")
+            }
+            //return <Navigate to='/edit'/>
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
+        //console.log("button worked");
         setFormData('');
-        // e.setFormData({
-        //     username: '',
-        //     password: '',
-        //     email: '',
-        //     first_name: '',
-        //     last_name: '',
-        //     phone_number: '',
-        //     avatar: '',
-        //     creditcard: ''
-        // });
     };
 
     return (
-        <div>
-            <h1>Edit User</h1>
+        <div className='form'>
+            <h1 className='title'>Edit User</h1>
             <form onSubmit={e => onSubmit(e)}>
                 <div className='form-group'>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -63,7 +66,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='password'
@@ -73,7 +76,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='email'
@@ -83,7 +86,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -93,7 +96,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -103,7 +106,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='tel'
@@ -113,7 +116,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         Avatar:
                         <input
                             className='form-control'
@@ -125,7 +128,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='number'

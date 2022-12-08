@@ -166,6 +166,7 @@ class GetUserNextPaymentApiView(APIView):
             return Response({"msg" : "No subscription currrently active"})
 
         response_data = {
+            # "payment plan": curr_subscription_instance.parent_subscription.pk,
             "next payment due": curr_subscription_instance.renewal_date,
             "amount due": curr_subscription.price,
             "cancelled": curr_subscription_instance.cancelled

@@ -1,0 +1,25 @@
+.form {
+    width: 20%;
+    padding: 1%;
+    /* background-color: greenyellow; */
+    /* background-color: linear-gradient(180deg, rgba(9, 255, 4, 0.2) 0%, rgba(172, 255, 170, 0.0677083) 99.99%, rgba(255, 255, 255, 0) 100%), #D9D9D9; */
+    background: linear-gradient(180deg, rgba(9, 255, 4, 0.2) 0%, rgba(172, 255, 170, 0.0677083) 99.99%, rgba(255, 255, 255, 0) 100%), #D9D9D9;
+    border-radius: 20px;
+    align-self: center;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.form-group {
+    margin: auto;
+    align-items: center;
+}
+
+.title {
+    align-self: center;
+    margin: auto;
+    /* padding-left: 20px; */
+    font-family: 'Inter';
+    /* font-style: oblique; */
+    font-weight: 500;
+}
