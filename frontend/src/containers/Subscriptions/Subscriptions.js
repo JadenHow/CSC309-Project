@@ -10,10 +10,6 @@ const SubscriptionList = () => {
     const [count, setCount] = useState(0);
     const [offset, setOffset] = useState(0);
 
-    // useEffect(() => {
-    //     getSubscriptionList();
-    // }, []);
-
     useEffect(() => {
         const getSubscriptionList = async () => {
             axios.get(`http://localhost:8000/subscriptions/?limit=10&offset=${offset}`)
@@ -69,8 +65,8 @@ const SubscriptionList = () => {
             <div>
                 <h3 className='title'>Subscription Plan Options:</h3>
                 <div className='subs'>
-                    {posts1.map((posts1, i) => (
-                        <Subscription key_num={i} price={posts1.price} occurance={posts1.occurance}/>
+                    {posts1.map((posts1) => (
+                        <Subscription key_num={posts1.pk} price={posts1.price} occurance={posts1.occurance}/>
                     ))}
                 </div>               
             <Pagination className='page'

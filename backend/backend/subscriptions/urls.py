@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from subscriptions.views import CreateSubscriptionApiView, SubscribeUserApiView, UpdateUserSubscriptionPlanView, ViewSubscriptionPlansView
+from subscriptions.views import SubscribeUserApiView, UpdateUserSubscriptionPlanView, ViewSubscriptionPlansView
 
 app_name = 'subscriptions'
 urlpatterns = [

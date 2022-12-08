@@ -49,7 +49,7 @@ const EditUser = () => {
 
     const[formData, setFormData] = useState(emptyState);
 
-    const { username, password, email, first_name, last_name, phone_number, avatar, creditcard } = formData;
+    const { username, password, email, avatar, creditcard } = formData;
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async(e) => {
@@ -183,8 +183,8 @@ const EditUser = () => {
                 </div>
                 <button className='btn btn-primary' type='submit'>Save</button>
             </form>
-            <br />
-            <div><img src={"http://localhost:8000/images/" + user.avatar} width="100%" /></div>
+            {/* <br />
+            <div><img src={"http://localhost:8000/images/" + user.avatar} alt="no image" width="100%" /></div> */}
         </div>
     )
 };

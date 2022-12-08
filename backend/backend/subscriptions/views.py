@@ -13,25 +13,25 @@ from users.serializers import PaymentHistorySerializer
 from users.models import RegisterUser
 from rest_framework.pagination import LimitOffsetPagination
 # Create your views here.
-class CreateSubscriptionApiView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [permissions.IsAdminUser]
+# class CreateSubscriptionApiView(APIView):
+#     authentication_classes = [TokenAuthentication]
+#     permission_classes = [permissions.IsAdminUser]
 
-    def post(self, request):
-        data = {
-            'price': request.data.get("price"),
-            'occurance': request.data.get("occurance")
-        }
+#     def post(self, request):
+#         data = {
+#             'price': request.data.get("price"),
+#             'occurance': request.data.get("occurance")
+#         }
 
-        serializer = SubscriptionSerializer(data=data)
+#         serializer = SubscriptionSerializer(data=data)
 
-        if serializer.is_valid(raise_exception=True):
-            serializer.save() 
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save() 
 
-            return Response({"msg" : "Subscription Created"}, status=200)
+#             return Response({"msg" : "Subscription Created"}, status=200)
 
-        else:
-            return Response({"msg" : "Error creating subscription"}, status=404)
+#         else:
+#             return Response({"msg" : "Error creating subscription"}, status=404)
 
 
 class SubscribeUserApiView(APIView):
@@ -50,7 +50,8 @@ class SubscribeUserApiView(APIView):
             return Response({"msg" : f"Already subscribed to a plan"}, status=404)
         elif curr_user.credit_card_number == '':
             return Response({"msg" : f"Please enter a credit card for this account"}, status=404)
-        
+        elif curr_user.credit_card_number is None:
+            return Response({"msg" : f"Please enter a credit card for this account"}, status=404)
 
         plan_lengths = {
             "weekly": 7,
@@ -225,16 +226,16 @@ class UpdateUserSubscriptionPlanView(APIView):
 class ViewSubscriptionPlansView(generics.ListAPIView):
     pagination_class = LimitOffsetPagination
     serializer_class = SubscriptionSerializer
-    queryset = '' # idk why I need to initalize an empty string queryset here for it to work, I was just copying code from list all classes and that works fine without this 
+    queryset = ''
 
     def get(self, request):
         queryset = Subscription.objects.all()
 
-        print(queryset)
+        # print(queryset)
 
         data = SubscriptionSerializer(queryset, many=True).data
 
-        print(data)
+        # print(data)
 
         page = self.paginate_queryset(data)
         return self.get_paginated_response(page)
