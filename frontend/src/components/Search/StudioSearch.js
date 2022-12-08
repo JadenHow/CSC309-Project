@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Hits, Highlight, Pagination, Configure } from 'react-instantsearch-hooks-web';
 import "../StudioComponents/studio.css";
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ClassDetailComponents from '../../components/ClassComponents/ClassDetail'
 import "./studiosearch.css";
+import { Pagination as PaginationANTD } from 'antd';
 
 const searchClient = algoliasearch('2SE5TN8IRT', 'aa72026cb29188c2018f9011071e18e5');
 
@@ -42,28 +43,6 @@ function AmenityHit({ hit }) {
     );
 }
 
-function ClassInstanceHit({ hit }) {
-    const split_studio = hit.studio.split("(")
-    // console.log(split_studio[1][0])
-    const navigate = useNavigate();
-    function handleClick() { navigate(`/studios/${split_studio[1][0]}`) };
-
-    return (
-        <div className="s-border" style={{ cursor: 'pointer' }} onClick={handleClick}>
-            <div className="s-content">
-                <h2><Highlight attribute="name" hit={hit} /></h2>
-                <h4><Highlight attribute="coach" hit={hit} /></h4>
-                <h4>{hit.description}</h4>
-                <h4>{hit.keywords}</h4>
-                <h4>{hit.capacity}</h4>
-                <h4>{hit.start_date}</h4>
-                <h4>{hit.start_time}</h4>
-                <h4>{hit.end_time}</h4>
-            </div>
-        </div>
-    );
-}
-
 const StudioSearch = () => {
     return (
         <InstantSearch searchClient={searchClient} indexName="backend_Studio">
@@ -90,17 +69,30 @@ const AmenitiesSearch = () => {
 
 const ClassInstanceSearch = () => {
     const [posts, setPosts] = useState([])
+    const [offset, setOffset] = useState(0);
+    const [count, setCount] = useState(0);
+
+    function handleChange(value) {
+        setOffset((value - 1) * 10);
+    };
 
     function class_search(search, start_date, end_date, start_time, end_time) {
-        axios.get(`http://localhost:8000/classes/search/?q=${search}&start=${start_date}&end=${end_date}&starttime=${start_time}&endttime=${end_time}`)
+        console.log(offset)
+        axios.get(`http://localhost:8000/classes/search/?q=${search}&start=${start_date}&end=${end_date}&starttime=${start_time}&endttime=${end_time}?limit=10&offset=${offset}`)
             .then(res => {
                 setPosts(res.data.results)
+                setCount(res.data.count)
                 console.log(res)
             })
             .catch(err => {
                 console.log(err)
             })
     };
+
+    useEffect(() => {
+        class_search(search, start_date, end_date, start_time, end_time);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [offset])
 
     const [searchData, setSearchData] = useState({
         search: '',
@@ -122,11 +114,11 @@ const ClassInstanceSearch = () => {
     return (
         <div>
             <div className='form'>
-                <h1>Search for classes:</h1>
+                <h1>Search for classes or coaches:</h1>
                 <form onSubmit={e => onSubmit(e)}>
                     <div className='form-group'>
                         <input
-                            className='class-instance-search-bar'
+                            className='search-bar'
                             type='search'
                             placeholder='Search'
                             name='search'
@@ -182,6 +174,13 @@ const ClassInstanceSearch = () => {
                     <ClassDetailComponents key={i} pk={posts.objectID} name={posts.name} description={posts.description} coach={posts.coach} keywords={posts.keywords} capacity={posts.capacity} currently_enrolled={posts.currently_enrolled} class_date={posts.class_date} start_time={posts.start_time} end_time={posts.end_time} />
                 ))}
             </div>
+            <br />
+            <PaginationANTD
+                defaultCurrent={1}
+                defaultPageSize={10} //default size of page
+                onChange={handleChange}
+                total={count} //total number of card data available
+            />
         </div>
     )
 };
@@ -214,18 +213,18 @@ const ClassStudioSearch = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-
+        console.log(current_url.split('/')[2])
         class_studio_search(search, current_url.split('/')[2]);
     };
 
     return (
         <div>
             <div className='container mt-5'>
-                <h1>Search for classes:</h1>
+                <h1>Search for classes or coaches:</h1>
                 <form onSubmit={e => onSubmit(e)}>
                     <div className='form-group'>
                         <input
-                            className='form-control'
+                            className='search-bar'
                             type='search'
                             placeholder='Search'
                             name='search'
@@ -245,4 +244,4 @@ const ClassStudioSearch = () => {
     )
 };
 
-export default ClassInstanceSearch;
+export { ClassStudioSearch, ClassInstanceSearch, StudioSearch, AmenitiesSearch };

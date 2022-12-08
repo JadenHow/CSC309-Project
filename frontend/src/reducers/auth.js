@@ -46,7 +46,6 @@ export default function func(state = initialState, action) {
                 isAuthenticated: false,
             }
         case LOGOUT_SUCCESS:
-            console.log("Yes")
             localStorage.removeItem('access');
             return {
                 ...state,
@@ -55,7 +54,6 @@ export default function func(state = initialState, action) {
                 user: null
             }
         case LOGOUT_FAIL:
-            console.log("No")
             return {
                 ...state,
             }

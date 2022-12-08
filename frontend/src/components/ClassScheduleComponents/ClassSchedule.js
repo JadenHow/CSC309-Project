@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import "../ClassComponents/classdetail.css";
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { useParams } from "react-router-dom";
 
 const ClassSchedule = ({ pk, name, studio, description, coach, keywords, capacity, currently_enrolled, class_date, start_time, end_time, isAuthenticated }) => {
-    const params = useParams();
     const [msg, setMsg] = useState("")
 
     function disenrollClass(studio_id, pk, isAuthenticated) {
@@ -17,6 +15,26 @@ const ClassSchedule = ({ pk, name, studio, description, coach, keywords, capacit
                 }
             };
             axios.post(`http://localhost:8000/studios/${studio_id}/classes/${pk}/drop/`, {}, config)
+                .then(res => {
+                    setMsg(res.data.msg)
+                })
+                .catch(err => {
+                    setMsg(err.response.data.msg)
+                })
+        } else {
+            setMsg("Please login.")
+        }
+    };
+
+    function disenrollAllClass(studio_id, pk, isAuthenticated) {
+        if (isAuthenticated) {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('access')}`
+                }
+            };
+            axios.post(`http://localhost:8000/studios/${studio_id}/classes/${pk}/drop/multiple`, {}, config)
                 .then(res => {
                     setMsg(res.data.msg)
                 })
@@ -42,6 +60,7 @@ const ClassSchedule = ({ pk, name, studio, description, coach, keywords, capacit
                 <h3>Start Time: {start_time}</h3>
                 <h3>End Time: {end_time}</h3>
                 <button onClick={() => disenrollClass(studio.split(' ')[1], pk, isAuthenticated)}>Disenroll</button>
+                <button onClick={() => disenrollAllClass(studio.split(' ')[1], pk, isAuthenticated)}>Disenroll All</button>
                 <h3>{msg}</h3>
             </div>
         </div>

@@ -103,16 +103,16 @@ export const signup = (username, password, email, first_name, last_name, phone_n
             "phone_number": phone_number,
             "credit_card_number": credit_card_number
         }
-        console.log(body)
+
         try {
             const res = await axios.post(`http://localhost:8000/users/register/user/`, body, config);
-            console.log(res.data)
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data
             });
         } catch (err) {
-            console.log(err)
+            // console.log(err.response.data)
+            alert(err.response.data.username)
             dispatch({
                 type: SIGNUP_FAIL
             })
