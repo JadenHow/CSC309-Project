@@ -17,7 +17,7 @@ const ClassDetail = ({ pk, name, description, coach, keywords, capacity, current
                 }
             };
 
-            axios.post(`http://localhost:8000/studios/${params.id}/classes/${pk}/enrol/`, {}, config)
+            axios.post(`http://localhost:8000/studios/0/classes/${pk}/enrol/`, {}, config)
                 .then(res => {
                     console.log(res.data.msg)
                     setMsg(res.data.msg)
@@ -27,6 +27,29 @@ const ClassDetail = ({ pk, name, description, coach, keywords, capacity, current
                     // window.alert(err.response.data.msg)
                     console.log(err)
                     setMsg(err.response.data.msg)
+                })
+        } else {
+            setMsg("Please login to enrol.")
+        }
+    };
+
+    function enrollAllClass(pk, isAuthenticated) {
+        if (isAuthenticated) {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('access')}`
+                }
+            };
+            axios.post(`http://localhost:8000/studios/0/classes/${pk}/enrol/multiple`, {}, config)
+                .then(res => {
+                    console.log(res.data.msg)
+                    setMsg(res.data.msg)
+                })
+                .catch(err => {
+                    // console.log(err.response.data.msg)
+                    // window.alert(err.response.data.msg)
+                    console.log(err)
                 })
         } else {
             setMsg("Please login to enrol.")
@@ -46,6 +69,7 @@ const ClassDetail = ({ pk, name, description, coach, keywords, capacity, current
                 <h3>Start Time: {start_time}</h3>
                 <h3>End Time: {end_time}</h3>
                 <button onClick={() => enrollClass(params, pk, isAuthenticated)}>Enroll</button>
+                <button onClick={() => enrollAllClass(pk, isAuthenticated)}>Enroll All</button>
                 <h3>{msg}</h3>
             </div>
         </div>

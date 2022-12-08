@@ -113,7 +113,7 @@ class ClassListAPIView(generics.ListAPIView):
         cleaned_data = queryset_future_date | queryset_today
         cleaned_data = cleaned_data.order_by("class_date", "start_time")
 
-        print(cleaned_data)
+        # print(cleaned_data)
 
         data = ClassInstancesSerializer(cleaned_data, many=True).data
         page = self.paginate_queryset(data)

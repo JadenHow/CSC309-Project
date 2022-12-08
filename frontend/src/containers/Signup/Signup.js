@@ -23,6 +23,7 @@ const Signup = ({ signup, isAuthenticated }) => {
         e.preventDefault();
         
         signup(username, password, email, first_name, last_name, phone_number, credit_card_number);
+        
     };
 
     if (isAuthenticated) {

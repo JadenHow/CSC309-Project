@@ -1,4 +1,6 @@
 from algoliasearch_django import algolia_engine
+import time
+now_timestamp = int(time.time())
 
 def get_client():
     return algolia_engine.client
@@ -21,6 +23,6 @@ def perform_search(query, index_name, **kwargs):
 def perform_search_studio_class(query, id):
     index = get_index('backend_ClassInstances')
     results = index.search(query, {
-        'filters': 'studio:"Studio object (' + str(id) + ')"'
+        'filters': 'studio:"Studio object (' + str(id) + ')"' ' AND ' + 'class_date_timestamp >= ' + str(now_timestamp)
     })
     return results
