@@ -185,3 +185,20 @@ class GetUserNextPaymentApiView(APIView):
 #         return Response(data)
 
 # enrolled_class_view = EnrolledClassAPIView.as_view()
+
+class GetUserInfoView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        username = request.user
+        user_obj = RegisterUser.objects.get(username=username)
+        data = {
+            'username': user_obj.username,
+            'email': user_obj.email if user_obj.email else '',
+            'first_name': user_obj.first_name,
+            'last_name': user_obj.last_name,
+            'phone_number': user_obj.phone_number,
+            'avatar': str(user_obj.avatar)
+        }
+        return Response(data, status=200)
