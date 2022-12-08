@@ -10,6 +10,7 @@ import "./subscriptiondetail.css";
 const Subscription = ({key_num, price, occurance }) => {
     const alternatingColor = ['#3bedb7', '#FFFFFF']
     const navigate = useNavigate();
+    const [message, setMessage] = React.useState([]);
     const handleClick = async() => {
         // try {
         //     let response = await fetch(`http://localhost:8000/subscriptions/${key_num}/subscribe/`, {
@@ -35,23 +36,26 @@ const Subscription = ({key_num, price, occurance }) => {
         axios.post(`http://localhost:8000/subscriptions/${key_num}/subscribe/`, {}, config)
         .then(res => {
             console.log(res);
-            message = res.data["detail"];
+            //message = res.data["msg"];
+            setMessage({msg: res.data["msg"]});
         })
         .catch( res => { // update subscriptions if already subbed
-            console.log("error", res);
-            // axios.patch(`http://localhost:8000/subscriptions/edit/`, {}, config)
-            // .then(res => {
-            //     console.log(res);
-            //     message = res.data["detail"];
-            // })
+            console.log("error, will try updating instead", res);
+            axios.patch(`http://localhost:8000/subscriptions/edit/`, {"parent_subscription": key_num}, config)
+            .then(res => {
+                console.log(res);
+                setMessage({msg: res.data["msg"]});
+                console.log(message)
+            })
         })
         //navigate(`/subscriptions`);
     }
-    var message = "";
 
     return (
         <div className="sub-box">
-            <p className='message'>{message}</p>
+            <div>
+                <p className='message'>{message.msg}</p>
+            </div>
             <div className='s-border' style={{ backgroundColor: alternatingColor[key_num % alternatingColor.length] }}>
                 <div className="s-right">
                     <h2 className="s-title">Price: ${price}</h2>

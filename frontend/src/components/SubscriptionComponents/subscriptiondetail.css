@@ -1,8 +1,16 @@
 .message {
     color: red;
     font-style: italic;
-    background-color: yellow;
-    width: fit-content;
+    /* background-color: lightgrey; */
+    /* width: fit-content; */
+    /* align-self: center; */
+    margin: 2px;
+    text-align: center;
+    vertical-align: auto;
+    /* white-space: nowrap; */
+    flex-shrink: 3;
+    height: 22px;
+    width: 195px;
 }
 
 .s-border {
@@ -22,6 +30,7 @@
     white-space: nowrap;
     margin: 20px 5px;
     /* padding: 2%; */
+    flex-shrink: 3;
 }
 
 .s-right {
@@ -48,4 +57,5 @@
     display: flex;
     margin: 0.5rem;
     margin-top: 0px;
+    flex-shrink: 3;
 }
