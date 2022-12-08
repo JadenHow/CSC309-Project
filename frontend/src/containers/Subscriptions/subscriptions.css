@@ -8,6 +8,7 @@
 
 .page {
     clear: all;
+    margin-bottom: 20px;
 }
 
 .title {
@@ -15,4 +16,10 @@
     margin-left: 1%;
     margin-bottom: 0px;
     text-decoration: underline;
+}
+
+.unsub-button {
+    margin-top: 10px;
+    background-color: rgb(80, 228, 203);
+    border-radius: 20px;
 }

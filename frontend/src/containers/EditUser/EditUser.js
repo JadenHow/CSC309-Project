@@ -101,7 +101,7 @@ const EditUser = () => {
                             className='form-control'
                             type='text'
                             name='username'
-                            placeholder={user.username}
+                            placeholder='username'
                             value={username}
                             onChange={e => onChange(e)}
                         />

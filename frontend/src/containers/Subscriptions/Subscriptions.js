@@ -34,6 +34,21 @@ const SubscriptionList = () => {
         setOffset((value - 1) * 10);
     };
 
+    // click the unsub button
+    const handleClick = async() => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('access')}`
+            }
+        };
+        axios.patch(`http://localhost:8000/subscriptions/edit/`, {"cancelled": true}, config)
+        .then(res => {
+            console.log(res);
+        })
+
+    }
+
     // const getSubscriptionList = async () => {
     //     await axios.get(`http://localhost:8000/subscriptions/`)
     //         .then(res => {
@@ -64,6 +79,9 @@ const SubscriptionList = () => {
                 onChange={handleChange}
                 total={count} //total number of card data available
             />
+            <div>
+                <button onClick={handleClick} type='button' className='unsub-button'>Cancel current plan</button>
+            </div>
             </div>
             
         )
