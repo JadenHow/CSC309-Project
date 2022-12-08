@@ -20,7 +20,7 @@ class EnrolAPIView(APIView):
 
     def post(self, request, studio_id, class_id):
         # /studios/classes/<classid>/enrol
-        studio = get_object_or_404(Studio, pk=studio_id)
+        # studio = get_object_or_404(Studio, pk=studio_id)
         class_instance = get_object_or_404(ClassInstances, pk=class_id)
 
         if not get_object_or_404(RegisterUser, user=request.user.id).subscribed:
@@ -35,12 +35,13 @@ class EnrolAPIView(APIView):
 
         # can't already be enrolled
         if Enrolled.objects.filter(class_instance = class_id, user = request.user.id).exists():
+            print(Enrolled.objects.filter(class_instance = class_id, user = request.user.id))
             return Response({
                 "msg": "Already enrolled" 
             }, status=404)
 
 
-        if studio == class_instance.studio and class_instance.currently_enrolled < class_instance.capacity and class_instance.class_date >= today:
+        if class_instance.currently_enrolled < class_instance.capacity and class_instance.class_date >= today:
             if class_instance.class_date == today and class_instance.start_time <= curr_time:
                 return Response({
                     "msg": "Class has already passed" 
@@ -115,7 +116,7 @@ class EnrolMultipleAPIView(APIView):
     permission_classes= [permissions.IsAuthenticated]
 
     def post(self, request, studio_id, class_id):
-        studio = get_object_or_404(Studio, pk=studio_id)
+        # studio = get_object_or_404(Studio, pk=studio_id)
         class_instance = get_object_or_404(ClassInstances, pk=class_id)
 
         if not get_object_or_404(RegisterUser, user=request.user.id).subscribed:
@@ -133,7 +134,7 @@ class EnrolMultipleAPIView(APIView):
             # Can't already be enrolled
             if Enrolled.objects.filter(class_instance = class_instance.pk, user = request.user.id).exists():
                 continue
-            if studio == class_instance.studio and class_instance.currently_enrolled < class_instance.capacity and class_instance.class_date >= today:
+            if class_instance.currently_enrolled < class_instance.capacity and class_instance.class_date >= today:
                 if class_instance.class_date == today and class_instance.start_time <= curr_time:
                     continue
             if get_object_or_404(SubscriptionInstance, user=request.user.id).renewal_date < class_instance.class_date:
