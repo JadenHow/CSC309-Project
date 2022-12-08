@@ -11,8 +11,8 @@ const Subscription = ({key_num, price, occurance }) => {
         <div className="s">
             <div className='s-border' style={{ backgroundColor: alternatingColor[key_num % alternatingColor.length] }}>
                 <div className="s-right">
-                    <h2 className="s-title">{price}</h2>
-                    <h3 className="s-title">{occurance}</h3>
+                    <h2 className="s-title">Price: ${price}</h2>
+                    <h3 className="s-title">Billing Cycle: {occurance}</h3>
                 </div>
             </div>
         </div>

@@ -19,9 +19,11 @@ const SubscriptionList = () => {
                 .then(res => {
                     setPosts1(res.data.results)
                     setCount(res.data.count)
+                    setLoading1(false)
                 })
                 .catch(err => {
                     console.log(err)
+                    setLoading1(false)
                 })
         };
         getSubscriptionList();
@@ -44,11 +46,12 @@ const SubscriptionList = () => {
     // };
 
 
-    // if (loading1) {
-    //     return <div className="App">Loading...</div>;
-    // } else {
+    if (loading1) {
+        return <div className="App">Loading...</div>;
+    } else {
         return (
             <div>
+                <h3 className='title'>Subscription Plan Options:</h3>
                 <div>
                     {posts1.map((posts1, i) => (
                         <Subscription key_num={i} price={posts1.price} occurance={posts1.occurance}/>
@@ -64,7 +67,7 @@ const SubscriptionList = () => {
             </div>
             
         )
-    //}
+    }
 };
 
 export default SubscriptionList;
