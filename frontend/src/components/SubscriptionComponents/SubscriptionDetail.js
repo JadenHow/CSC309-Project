@@ -25,12 +25,21 @@ const Subscription = ({key_num, price, occurance }) => {
         // } catch (err) {
         //     console.log(err)
         // }
-        axios.post(`http://localhost:8000/subscriptions/${key_num}/subscribe/`)
-            .then(res => {
-                console.log(res);
-                message = res.data["detail"];
-            })
-
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('access')}`
+            }
+        };
+        axios.post(`http://localhost:8000/subscriptions/${key_num}/subscribe/`, {}, config)
+        .then(res => {
+            console.log(res);
+            message = res.data["detail"];
+        })
+        .catch( res => {
+            console.log("error", res);
+            //message = String(res);
+        })
         //navigate(`/subscriptions`);
     }
     var message = "";

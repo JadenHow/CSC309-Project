@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import axios from 'axios';
 // import App from '../App';
@@ -23,24 +23,32 @@ const EditUser = ({ isAuthenticated }) => {
     const onSubmit = async(e) => {
         e.preventDefault();
         console.log("submitted", formData);
+
         try {
             let response = await fetch(`http://localhost:8000/users/edit/`, {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('access')}`
                 },
                 body: JSON.stringify(formData),
-                method: 'POST'
+                method: 'PATCH'
             });
             console.log(response);
-            if (response.stats === 200) {
+            if (response.status === 200) {
+                console.log("success")
                 setFormData(emptyState);
+                //return <Navigate to='/profile/'/>;
+                window.location.reload(false);
+            } else {
+                console.log("some error occurred")
             }
-            //return <Navigate to='/profile/'/>
+            //return <Navigate to='/edit'/>
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
-        //setFormData('');
+        //console.log("button worked");
+        setFormData('');
     };
 
     return (
