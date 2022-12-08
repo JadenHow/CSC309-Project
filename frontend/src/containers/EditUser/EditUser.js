@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 // import axios from 'axios';
 // import App from '../App';
+import "./edituser.css";
 
 const EditUser = ({ isAuthenticated }) => {
     const emptyState = {
@@ -43,11 +44,11 @@ const EditUser = ({ isAuthenticated }) => {
     };
 
     return (
-        <div>
-            <h1>Edit User</h1>
+        <div className='form'>
+            <h1 className='title'>Edit User</h1>
             <form onSubmit={e => onSubmit(e)}>
                 <div className='form-group'>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -57,7 +58,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='password'
@@ -67,7 +68,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='email'
@@ -77,7 +78,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -87,7 +88,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -97,7 +98,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='tel'
@@ -107,7 +108,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         Avatar:
                         <input
                             className='form-control'
@@ -119,7 +120,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='number'
