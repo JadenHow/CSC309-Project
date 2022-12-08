@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
+import axios from 'axios';
 // import App from '../App';
 import "./edituser.css";
 
-const EditUser = ({ isAuthenticated }) => {
+const EditUser = () => {
+
+    const [user, setUser] = useState({})
+
     const emptyState = {
         username: '',
         password: '',
@@ -13,8 +15,38 @@ const EditUser = ({ isAuthenticated }) => {
         first_name: '',
         last_name: '',
         phone_number: '',
-        avatar: '',
-        creditcard: ''}
+        creditcard: ''
+    }
+
+    useEffect(() => {
+        const getUser = async () => {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Token ${localStorage.getItem('access')}`
+                }
+            };
+
+            axios.get(`http://localhost:8000/users/info/`, config)
+                .then(res => {
+                    setUser(res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        };
+        getUser();
+    }, [])
+
+    const [file, setFile] = useState();
+    const [msg, setMsg] = useState('');
+
+    const handleFileChange = (e) => {
+        if (e.target.files) {
+            setFile(e.target.files[0]);
+        }
+    };
+
     const[formData, setFormData] = useState(emptyState);
 
     const { username, password, email, first_name, last_name, phone_number, avatar, creditcard } = formData;
@@ -24,31 +56,39 @@ const EditUser = ({ isAuthenticated }) => {
         e.preventDefault();
         console.log("submitted", formData);
 
-        try {
-            let response = await fetch(`http://localhost:8000/users/edit/`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${localStorage.getItem('access')}`
-                },
-                body: JSON.stringify(formData),
-                method: 'PATCH'
-            });
-            console.log(response);
-            if (response.status === 200) {
-                console.log("success")
-                setFormData(emptyState);
-                //return <Navigate to='/profile/'/>;
-                window.location.reload(false);
-            } else {
-                console.log("some error occurred")
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Token ${localStorage.getItem('access')}`
             }
+        };
+
+        const body = {
+            "username": formData.username,
+            "password": formData.password,
+            "email": formData.email,
+            "first_name": formData.first_name,
+            "last_name": formData.last_name,
+            "phone_number": formData.phone_number,
+            "credit_card_number": formData.credit_card_number,
+            "avatar": file
+        }
+
+        try {
+            console.log(formData)
+            await axios.patch(`http://localhost:8000/users/edit/`, body, config);
+            setMsg("success")
+            setFormData(emptyState);
+            //return <Navigate to='/profile/'/>;
+            window.location.reload(false);
+
             //return <Navigate to='/edit'/>
         } catch (err) {
+            setMsg(err.response.data.msg)
             console.log(err);
         }
         //console.log("button worked");
-        setFormData('');
+        // setFormData('');
     };
 
     return (
@@ -61,7 +101,7 @@ const EditUser = ({ isAuthenticated }) => {
                             className='form-control'
                             type='text'
                             name='username'
-                            placeholder='username'
+                            placeholder={user.username}
                             value={username}
                             onChange={e => onChange(e)}
                         />
@@ -92,7 +132,7 @@ const EditUser = ({ isAuthenticated }) => {
                             type='text'
                             name='first_name'
                             placeholder='first name'
-                            value={first_name}
+                            value={user.first_name}
                             onChange={e => onChange(e)}
                         />
                     </div>
@@ -102,7 +142,7 @@ const EditUser = ({ isAuthenticated }) => {
                             type='text'
                             name='last_name'
                             placeholder='last name'
-                            value={last_name}
+                            value={user.last_name}
                             onChange={e => onChange(e)}
                         />
                     </div>
@@ -112,7 +152,7 @@ const EditUser = ({ isAuthenticated }) => {
                             type='tel'
                             name='phone_number'
                             placeholder='phone number'
-                            value={phone_number}
+                            value={user.phone_number}
                             onChange={e => onChange(e)}
                         />
                     </div>
@@ -125,7 +165,7 @@ const EditUser = ({ isAuthenticated }) => {
                             placeholder='avatar'
                             alt='avatar'
                             value={avatar}
-                            onChange={e => onChange(e)}
+                            onChange={handleFileChange}
                         />
                     </div>
                     <div className='inputfield'>
@@ -139,9 +179,12 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
+                    <div className='inputfield'>{msg}</div>
                 </div>
                 <button className='btn btn-primary' type='submit'>Save</button>
             </form>
+            <br />
+            <div><img src={"http://localhost:8000/images/" + user.avatar} width="100%" /></div>
         </div>
     )
 };
@@ -149,6 +192,5 @@ const EditUser = ({ isAuthenticated }) => {
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
-
 
 export default connect(mapStateToProps)(EditUser); //(mapStateToProps);

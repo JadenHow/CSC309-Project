@@ -78,6 +78,7 @@ class NearbyStudioListAPIView(generics.ListAPIView):
         new_list = []
         for obj_new in list_of_studios:
             data = {
+                'pk': obj_new[1]['pk'],
                 'owner': obj_new[1]['owner'],
                 'name': obj_new[1]['name'],
                 'phone_number': obj_new[1]['phone_number'],

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./subscriptiondetail.css";
 
@@ -9,7 +8,6 @@ import "./subscriptiondetail.css";
 // cancelled = models.BooleanField(default=False)
 const Subscription = ({key_num, price, occurance }) => {
     const alternatingColor = ['#3bedb7', '#FFFFFF']
-    const navigate = useNavigate();
     const [message, setMessage] = React.useState([]);
     const handleClick = async() => {
         // try {

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signup } from '../../actions/auth';
 import './signup.css'
 
-
-const Signup = ({ signup, isAuthenticated }) => {
+const Signup = ({ signup }) => {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -13,23 +12,27 @@ const Signup = ({ signup, isAuthenticated }) => {
         first_name: '',
         last_name: '',
         phone_number: '',
-        credit_card_number: ''
+        credit_card_number: '',
     });
 
-    const { username, password, email, first_name, last_name, phone_number, credit_card_number } = formData;
+    const [file, setFile] = useState();
+
+    const { username, password, email, first_name, last_name, phone_number, credit_card_number, avatar } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
-        e.preventDefault();
-        
-        signup(username, password, email, first_name, last_name, phone_number, credit_card_number);
-        
+    const handleFileChange = (e) => {
+        if (e.target.files) {
+            setFile(e.target.files[0]);
+        }
     };
 
-    if (isAuthenticated) {
-        return <Navigate to='/' />
-    }
+    const onSubmit = e => {
+        e.preventDefault();
+
+        signup(username, password, email, first_name, last_name, phone_number, credit_card_number, file);
+
+    };
 
     return (
         <div className='container mt-5'>
@@ -99,8 +102,20 @@ const Signup = ({ signup, isAuthenticated }) => {
                         onChange={e => onChange(e)}
                     />
                 </div>
+                <div>
+                    Avatar:
+                    <input
+                        className='form-control'
+                        type='file'
+                        name='avatar'
+                        placeholder='avatar'
+                        alt='avatar'
+                        value={avatar}
+                        accept="image/png, image/jpeg"
+                        onChange={handleFileChange}
+                    />
+                </div>
                 <button className='btn btn-primary' type='submit'>Register</button>
-                {/* { !errorMsg || <h4 style={{ color: "red" }}>Incorrect Combination</h4>} */}
             </form>
             <p className='mt-3'>
                 Already have an account? <Link to='/login'>Login</Link>

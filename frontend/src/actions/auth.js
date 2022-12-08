@@ -74,7 +74,6 @@ export const logout = () => async dispatch => {
             });
 
         } catch (err) {
-            console.log('Fail')
             dispatch({
                 type: LOGOUT_FAIL
             })
@@ -86,11 +85,11 @@ export const logout = () => async dispatch => {
     }
 };
 
-export const signup = (username, password, email, first_name, last_name, phone_number, credit_card_number) => async dispatch => {
+export const signup = (username, password, email, first_name, last_name, phone_number, credit_card_number, avatar) => async dispatch => {
     if (!localStorage.getItem('access')) {
         const config = {
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             }
         };
 
@@ -101,21 +100,24 @@ export const signup = (username, password, email, first_name, last_name, phone_n
             "first_name": first_name,
             "last_name": last_name,
             "phone_number": phone_number,
-            "credit_card_number": credit_card_number
+            "credit_card_number": credit_card_number,
+            "avatar": avatar
         }
 
         try {
+            console.log(body)
             const res = await axios.post(`http://localhost:8000/users/register/user/`, body, config);
+            alert("Signup Success")
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data
             });
         } catch (err) {
-            // console.log(err.response.data)
+            console.log(err)
             alert(err.response.data.username)
             dispatch({
                 type: SIGNUP_FAIL
-            })
+            });
         }
     } else {
         dispatch({
