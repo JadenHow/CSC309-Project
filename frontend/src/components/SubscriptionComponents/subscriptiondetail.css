@@ -1,0 +1,51 @@
+.message {
+    color: red;
+    font-style: italic;
+    background-color: yellow;
+    width: fit-content;
+}
+
+.s-border {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border-style: groove;
+    width: fit-content;
+    padding: 1%;
+}
+
+.s-title {
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    white-space: nowrap;
+    margin: 20px 5px;
+    /* padding: 2%; */
+}
+
+.s-right {
+    align-items: center;
+}
+
+.button {
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+}
+
+.button:hover {
+    background-color: darkslategrey;
+    color:aqua;
+}
+
+.sub-box {
+    width: fit-content;
+    float: left;
+    /* gap: 2rem; */
+    flex-flow: row wrap;
+    display: flex;
+    margin: 0.5rem;
+    margin-top: 0px;
+}

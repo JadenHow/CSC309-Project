@@ -33,12 +33,10 @@ def perform_search(query, **kwargs):
     
     index = get_index()
     if start and end and (not starttime) and (not endtime):
-        print("start")
         results = index.search(query, {
             'filters': f'class_date_timestamp:{start_unix} TO {end_unix}'
             })
     elif start and (not end) and (not starttime):      
-        print("Here") 
         results = index.search(query, {
             'filters': 'class_date_timestamp >= ' + str(start_unix)
             })
@@ -51,17 +49,14 @@ def perform_search(query, **kwargs):
             'filters': 'start_time_timestamp >= ' + str(starttime)
             })
     elif start and starttime and (not endtime) and (not end):
-        print("hello")
         results = index.search(query, {
             'filters': 'class_date_timestamp >= ' + str(start_unix) + ' AND ' + 'start_time_timestamp >= ' + str(starttime)
             })
     elif (not start) and (not starttime) and (not endtime) and end:
-        print("end")
         results = index.search(query, {
             'filters': f'class_date_timestamp:{now_timestamp} TO {end_unix}'
             })
     else: 
-        print("final")
         results = index.search(query)
 
     return results

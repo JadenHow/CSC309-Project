@@ -6,7 +6,7 @@ import Signup from './containers/Signup/Signup';
 import Login from './containers/Login/Login';
 import Logout from './containers/Logout/Logout';
 import EditUser from './containers/EditUser/EditUser';
-import StudioSearch from './components/Search/StudioSearch';
+import { StudioSearch, AmenitiesSearch, ClassInstanceSearch } from './components/Search/StudioSearch';
 import SubscriptionList from './containers/Subscriptions/Subscriptions';
 import ClassSchedule from './containers/ClassSchedule/ClassSchedule';
 import FindStudio from './containers/FindStudio/FindStudio';
@@ -27,10 +27,13 @@ const App = () => (
           <Route exact path='/signup' element={<Signup />} />
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/logout' element={<Logout />} />
-          <Route exact path='/studios/:id/' element={<div><StudioDetail /><StudioSearch /></div>} />
+          <Route exact path='/studios/:id/' element={<StudioDetail />} />
           <Route exact path='/edit' element={<EditUser />} />
           <Route exact path='/subscriptions' element={<SubscriptionList />} />
           <Route exact path='/schedule' element={<ClassSchedule />} />
+          <Route exact path='/studios/search' element={<StudioSearch />} />
+          <Route exact path='/amenities/search' element={<AmenitiesSearch />} />
+          <Route exact path='/classes/search' element={<ClassInstanceSearch />} />
           <Route exact path='/findstudio' element={<FindStudio />} />
         </Routes>
       </Layout>

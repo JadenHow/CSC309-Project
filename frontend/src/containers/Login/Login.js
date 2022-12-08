@@ -9,7 +9,7 @@ const Login = ({ login, isAuthenticated }) => {
         username: '',
         password: ''
     });
-
+    const[msg, setMsg] = useState('')
     const { username, password } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,6 +18,7 @@ const Login = ({ login, isAuthenticated }) => {
         e.preventDefault();
 
         login(username, password);
+        setMsg("Unable to log in with provided credentials.")
     };
 
     if (isAuthenticated) {
@@ -53,7 +54,7 @@ const Login = ({ login, isAuthenticated }) => {
                     />
                 </div>
                 <button className='btn btn-primary' type='submit'>Login</button>
-                {/* { !errorMsg || <h4 style={{ color: "red" }}>Incorrect Combination</h4>} */}
+                <h4 style={{ color: 'red' }}>{msg}</h4>
             </form>
             <p className='mt-3'>
                 Don't have an account? <Link to='/signup'>Sign Up</Link>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-// import { Link, Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import axios from 'axios';
 // import App from '../App';
+import "./edituser.css";
 
 const EditUser = ({ isAuthenticated }) => {
     const emptyState = {
@@ -14,7 +15,7 @@ const EditUser = ({ isAuthenticated }) => {
         phone_number: '',
         avatar: '',
         creditcard: ''}
-    const[formData, setFormData] = useState('');
+    const[formData, setFormData] = useState(emptyState);
 
     const { username, password, email, first_name, last_name, phone_number, avatar, creditcard } = formData;
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,28 +33,22 @@ const EditUser = ({ isAuthenticated }) => {
                 method: 'POST'
             });
             console.log(response);
+            if (response.stats === 200) {
+                setFormData(emptyState);
+            }
+            //return <Navigate to='/profile/'/>
         } catch (err) {
             console.log(err)
         }
-        setFormData('');
-        // e.setFormData({
-        //     username: '',
-        //     password: '',
-        //     email: '',
-        //     first_name: '',
-        //     last_name: '',
-        //     phone_number: '',
-        //     avatar: '',
-        //     creditcard: ''
-        // });
+        //setFormData('');
     };
 
     return (
-        <div>
-            <h1>Edit User</h1>
+        <div className='form'>
+            <h1 className='title'>Edit User</h1>
             <form onSubmit={e => onSubmit(e)}>
                 <div className='form-group'>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -63,7 +58,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='password'
@@ -73,7 +68,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='email'
@@ -83,7 +78,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -93,7 +88,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='text'
@@ -103,7 +98,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='tel'
@@ -113,7 +108,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         Avatar:
                         <input
                             className='form-control'
@@ -125,7 +120,7 @@ const EditUser = ({ isAuthenticated }) => {
                             onChange={e => onChange(e)}
                         />
                     </div>
-                    <div>
+                    <div className='inputfield'>
                         <input
                             className='form-control'
                             type='number'
