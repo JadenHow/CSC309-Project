@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Nav, NavLink, NavMenu, NavBtn, NavBtnLink, ContrastedNavBtnLink, OpenLinksButton, NavbarExtendedContainer, NavLinkExtended } from './NavbarLoggedOutElements';
 import {FaBars, FaTimes} from 'react-icons/fa'
 import { connect } from 'react-redux';
+import getUserLocation from '../../containers/FindStudio/FindStudio';
 
 const Navbar = ({isAuthenticated}) => {
     const [extendNavbar, setExtendNavbar] = useState(false);
@@ -25,8 +26,8 @@ const Navbar = ({isAuthenticated}) => {
                     <NavLink to='/'>
                         Home
                     </NavLink>
-                    <NavLink to='/studios'>
-                        Studios
+                    <NavLink to='/findstudio'>
+                        Find a Studio Near Me
                     </NavLink>
                     <NavLink to='/subscriptions'>
                         Subscription Plan
