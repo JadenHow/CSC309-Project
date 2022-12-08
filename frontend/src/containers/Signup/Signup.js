@@ -12,18 +12,19 @@ const Signup = ({ signup, isAuthenticated }) => {
         first_name: '',
         last_name: '',
         phone_number: '',
-        credit_card_number: ''
+        credit_card_number: '',
+        avatar: ''
     });
 
-    const { username, password, email, first_name, last_name, phone_number, credit_card_number } = formData;
+    const { username, password, email, first_name, last_name, phone_number, credit_card_number, avatar } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
         
-        signup(username, password, email, first_name, last_name, phone_number, credit_card_number);
-        
+        signup(username, password, email, first_name, last_name, phone_number, credit_card_number, avatar);
+
     };
 
     if (isAuthenticated) {
@@ -95,6 +96,18 @@ const Signup = ({ signup, isAuthenticated }) => {
                         placeholder='Phone Number'
                         name='phone_number'
                         value={phone_number}
+                        onChange={e => onChange(e)}
+                    />
+                </div>
+                <div>
+                    Avatar:
+                    <input
+                        className='form-control'
+                        type='file'
+                        name='avatar'
+                        placeholder='avatar'
+                        alt='avatar'
+                        value={avatar}
                         onChange={e => onChange(e)}
                     />
                 </div>
