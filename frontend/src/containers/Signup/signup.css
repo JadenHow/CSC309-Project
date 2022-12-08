@@ -1,4 +1,4 @@
-.form {
+.container {
     width: 20%;
     padding: 1%;
     /* background-color: greenyellow; */
@@ -8,18 +8,13 @@
     align-self: center;
     margin: auto;
     margin-top: 40px;
+    align-items: center;
 }
 
 .form-group {
     margin: auto;
-    align-items: center;
 }
 
-.title {
-    align-self: center;
+.form-control {
     margin: auto;
-    /* padding-left: 20px; */
-    font-family: 'Inter';
-    /* font-style: oblique; */
-    font-weight: 500;
 }

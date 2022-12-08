@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signup } from '../../actions/auth';
+import './signup.css'
 
 
 const Signup = ({ signup, isAuthenticated }) => {
@@ -32,8 +33,8 @@ const Signup = ({ signup, isAuthenticated }) => {
 
     return (
         <div className='container mt-5'>
-            <h1>Register</h1>
-            <p>Register An Account</p>
+            <h1 className='title'>Register</h1>
+            <p className='header'>Register An Account</p>
             <form onSubmit={e => onSubmit(e)}>
                 <div className='form-group'>
                     <input
