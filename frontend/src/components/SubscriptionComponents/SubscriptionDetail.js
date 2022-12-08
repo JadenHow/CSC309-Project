@@ -25,12 +25,26 @@ const Subscription = ({key_num, price, occurance }) => {
         // } catch (err) {
         //     console.log(err)
         // }
-        axios.post(`http://localhost:8000/subscriptions/${key_num}/subscribe/`)
-            .then(res => {
-                console.log(res);
-                message = res.data["detail"];
-            })
-
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('access')}`
+            }
+        };
+        // subscribe
+        axios.post(`http://localhost:8000/subscriptions/${key_num}/subscribe/`, {}, config)
+        .then(res => {
+            console.log(res);
+            message = res.data["detail"];
+        })
+        .catch( res => { // update subscriptions if already subbed
+            console.log("error", res);
+            // axios.patch(`http://localhost:8000/subscriptions/edit/`, {}, config)
+            // .then(res => {
+            //     console.log(res);
+            //     message = res.data["detail"];
+            // })
+        })
         //navigate(`/subscriptions`);
     }
     var message = "";
