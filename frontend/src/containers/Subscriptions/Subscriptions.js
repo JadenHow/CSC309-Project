@@ -9,6 +9,7 @@ const SubscriptionList = () => {
     const [posts1, setPosts1] = useState([])
     const [count, setCount] = useState(0);
     const [offset, setOffset] = useState(0);
+    const [msg, setMsg] = useState("")
 
     useEffect(() => {
         const getSubscriptionList = async () => {
@@ -40,9 +41,13 @@ const SubscriptionList = () => {
         };
         axios.patch(`http://localhost:8000/subscriptions/edit/`, {"cancelled": true}, config)
         .then(res => {
+            setMsg("Successfully cancelled")
             console.log(res);
         })
-
+        .catch(err => {
+            setMsg("Please log in to cancel")
+        }
+        )
     }
 
     // const getSubscriptionList = async () => {
@@ -78,8 +83,8 @@ const SubscriptionList = () => {
             <div>
                 <button onClick={handleClick} type='button' className='unsub-button'>Cancel current plan</button>
             </div>
+                <h4>{msg}</h4>
             </div>
-            
         )
     }
 };

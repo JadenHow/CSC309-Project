@@ -21,7 +21,6 @@ const Studio = ({ key_num, name, address, postal_code, image, url }) => {
                         <h2>{name}</h2>
                         <h3>{address}</h3>
                         <h3>{postal_code}</h3>
-                        <h3>{split_url}</h3>
                         <button type='button' onClick={handleClick} className="s-button">{"Club Details"}</button>
                     </div>
                 </div>

@@ -32,6 +32,15 @@ const Navbar = ({isAuthenticated}) => {
                     <NavLink to='/subscriptions'>
                         Subscription Plan
                     </NavLink>
+                    <NavLink to='/studios/search'>
+                        Search Studios
+                    </NavLink>
+                    <NavLink to='/amenities/search'>
+                        Search Amenities
+                    </NavLink>
+                    <NavLink to='/classes/search'>
+                        Search Classes
+                    </NavLink>
                 </ NavMenu>
 
                 {!isAuthenticated ? (

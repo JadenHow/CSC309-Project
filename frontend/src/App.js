@@ -10,6 +10,8 @@ import { StudioSearch, AmenitiesSearch, ClassInstanceSearch } from './components
 import SubscriptionList from './containers/Subscriptions/Subscriptions';
 import ClassSchedule from './containers/ClassSchedule/ClassSchedule';
 import FindStudio from './containers/FindStudio/FindStudio';
+import PaymentHistory from './containers/PaymentHistory/PaymentHistory';
+import UserProfile from './containers/UserProfile/UserProfile';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -35,6 +37,8 @@ const App = () => (
           <Route exact path='/amenities/search' element={<AmenitiesSearch />} />
           <Route exact path='/classes/search' element={<ClassInstanceSearch />} />
           <Route exact path='/findstudio' element={<FindStudio />} />
+          <Route exact path='/history' element={<PaymentHistory />} />
+          <Route exact path='/profile' element={<UserProfile />} />
         </Routes>
       </Layout>
     </Router>

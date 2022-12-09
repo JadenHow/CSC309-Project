@@ -18,7 +18,6 @@ const Subscription = ({key_num, price, occurance }) => {
                 }
             };
             // subscribe
-            console.log(key_num)
             axios.post(`http://localhost:8000/subscriptions/${key_num}/subscribe/`, {}, config)
                 .then(res => {
                     console.log(res);
@@ -26,12 +25,14 @@ const Subscription = ({key_num, price, occurance }) => {
                     setMessage({ msg: res.data["msg"] });
                 })
                 .catch(res => { // update subscriptions if already subbed
-                    console.log("error, will try updating instead", res);
+                    // console.log("error, will try updating instead", res);
+                    // setMessage({ msg: res.data["msg"] });
+                    setMessage(res.response.data.msg)
                     axios.patch(`http://localhost:8000/subscriptions/edit/`, { "parent_subscription": key_num }, config)
                         .then(res => {
-                            console.log(res);
+                            // console.log(res);
                             setMessage({ msg: res.data["msg"] });
-                            console.log(message)
+                            // console.log(message)
                         })
                 })
         } else {
@@ -46,7 +47,7 @@ const Subscription = ({key_num, price, occurance }) => {
                     <h2 className="s-title">Price: ${price}</h2>
                     <h3 className="s-title">Billing Cycle: {occurance}</h3>
                     <h3>
-                    <button type='button' onClick={handleClick} className="s-button">{"Subscribe"}</button>
+                    <button type='button' onClick={handleClick} className="sub-button">{"Subscribe"}</button>
                     </h3>
                 </div>
             </div>
