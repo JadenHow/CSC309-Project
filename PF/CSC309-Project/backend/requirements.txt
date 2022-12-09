@@ -1,0 +1,10 @@
+algoliasearch-django>=2.0,<3.0
+django==4.0.1
+Pillow==9.0.1
+djangorestframework
+pyyaml
+requests
+django-cors-headers
+django-rest-knox
+geopy
+apscheduler

@@ -1,0 +1,25 @@
+.subs {
+    width: 100%;
+    flex-flow: row wrap;
+    float: left;
+    display: flex;
+    gap: 1rem;
+}
+
+.page {
+    clear: all;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 35px;
+    margin-left: 1%;
+    margin-bottom: 0px;
+    text-decoration: underline;
+}
+
+.unsub-button {
+    margin-top: 10px;
+    background-color: rgb(80, 228, 203);
+    border-radius: 20px;
+}

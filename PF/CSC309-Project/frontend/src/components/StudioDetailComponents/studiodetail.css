@@ -1,0 +1,35 @@
+.sd {
+    padding-top: 1vh;
+    padding-top: 1vh;
+}
+
+.sd-border {
+    display: flex;
+    /* align-items: center; */
+    border-radius: 5px;
+    border-style: groove;
+}
+
+.sd-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.sd-right {
+    flex: 2;
+}
+
+.sd-img {
+    width: 60vh;
+    height: 40vh;
+    object-fit: cover;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
