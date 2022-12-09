@@ -27,9 +27,9 @@ const FindStudio = () => {
                     const long = position.coords.longitude;
                     body.latitude = lat;
                     body.longitude = long;
-                    console.log(body);
-                    console.log(lat);
-                    console.log(long);
+                    // console.log(body);
+                    // console.log(lat);
+                    // console.log(long);
                 },
                 error => {
                     console.log("Error getting location");

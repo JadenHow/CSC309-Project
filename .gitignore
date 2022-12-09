@@ -22,7 +22,5 @@
 *.yarn-debug.log*
 *.yarn-error.log*
 
-*.db.sqlite3
-*.static/images
 *.__pycache__/
 *.pyc

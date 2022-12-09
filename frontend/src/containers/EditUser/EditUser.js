@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 // import App from '../App';
 import "./edituser.css";
+import { useNavigate } from 'react-router-dom';
 
 const EditUser = () => {
-
+    const navigate = useNavigate();
     const [user, setUser] = useState({})
 
     const emptyState = {
@@ -15,7 +16,7 @@ const EditUser = () => {
         first_name: '',
         last_name: '',
         phone_number: '',
-        creditcard: ''
+        creditcard: '',
     }
 
     useEffect(() => {
@@ -49,7 +50,7 @@ const EditUser = () => {
 
     const[formData, setFormData] = useState(emptyState);
 
-    const { username, password, email, first_name, last_name, phone_number, avatar, creditcard } = formData;
+    const { username, password, email, avatar, phone_number, creditcard } = formData;
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async(e) => {
@@ -79,8 +80,7 @@ const EditUser = () => {
             await axios.patch(`http://localhost:8000/users/edit/`, body, config);
             setMsg("success")
             setFormData(emptyState);
-            //return <Navigate to='/profile/'/>;
-            window.location.reload(false);
+            navigate(`/profile`);
 
             //return <Navigate to='/edit'/>
         } catch (err) {
@@ -149,10 +149,9 @@ const EditUser = () => {
                     <div className='inputfield'>
                         <input
                             className='form-control'
-                            type='tel'
+                            type='text'
                             name='phone_number'
                             placeholder='phone number'
-                            value={user.phone_number}
                             onChange={e => onChange(e)}
                         />
                     </div>
@@ -171,7 +170,7 @@ const EditUser = () => {
                     <div className='inputfield'>
                         <input
                             className='form-control'
-                            type='number'
+                            type='text'
                             name='creditcard'
                             placeholder='credit card number'
                             alt='creditcard'
@@ -183,8 +182,8 @@ const EditUser = () => {
                 </div>
                 <button className='btn btn-primary' type='submit'>Save</button>
             </form>
-            <br />
-            <div><img src={"http://localhost:8000/images/" + user.avatar} width="100%" /></div>
+            {/* <br />
+            <div><img src={"http://localhost:8000/images/" + user.avatar} alt="no image" width="100%" /></div> */}
         </div>
     )
 };

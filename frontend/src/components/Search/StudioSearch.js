@@ -113,7 +113,7 @@ const ClassInstanceSearch = () => {
     };
     return (
         <div>
-            <div className='form'>
+            <div>
                 <h1>Search for classes or coaches:</h1>
                 <form onSubmit={e => onSubmit(e)}>
                     <div className='form-group'>
@@ -219,7 +219,7 @@ const ClassStudioSearch = () => {
 
     return (
         <div>
-            <div className='container mt-5'>
+            <div>
                 <h1>Search for classes or coaches:</h1>
                 <form onSubmit={e => onSubmit(e)}>
                     <div className='form-group'>

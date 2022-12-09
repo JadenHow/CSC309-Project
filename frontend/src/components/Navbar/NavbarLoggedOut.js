@@ -3,6 +3,7 @@ import { Nav, NavLink, NavMenu, NavBtn, NavBtnLink, ContrastedNavBtnLink, OpenLi
 import {FaBars, FaTimes} from 'react-icons/fa'
 import { connect } from 'react-redux';
 import getUserLocation from '../../containers/FindStudio/FindStudio';
+import tft from '../../tfc.png'
 
 const Navbar = ({isAuthenticated}) => {
     const [extendNavbar, setExtendNavbar] = useState(false);
@@ -15,7 +16,7 @@ const Navbar = ({isAuthenticated}) => {
         <>
             <Nav extendNavbar={extendNavbar}>
                 <NavLink to="/">
-                    <h1>Logo</h1>
+                    <img src={tft} alt='' style={{ width: "10%", position: 'absolute'}}/>
                 </NavLink>
 
                 <OpenLinksButton onClick={() => {setExtendNavbar((curr) => (!curr))}}>
@@ -34,6 +35,15 @@ const Navbar = ({isAuthenticated}) => {
                     </NavLink>
                     <NavLink to='/subscriptions'>
                         Subscription Plan
+                    </NavLink>
+                    <NavLink to='/studios/search'>
+                        Search Studios
+                    </NavLink>
+                    <NavLink to='/amenities/search'>
+                        Search Amenities
+                    </NavLink>
+                    <NavLink to='/classes/search'>
+                        Search Classes
                     </NavLink>
                 </ NavMenu>
 

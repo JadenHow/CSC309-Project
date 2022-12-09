@@ -4,13 +4,14 @@
     /* background-color: lightgrey; */
     /* width: fit-content; */
     /* align-self: center; */
-    margin: 2px;
+    margin: auto;
     text-align: center;
     vertical-align: auto;
     /* white-space: nowrap; */
-    flex-shrink: 3;
-    height: 22px;
-    width: 150px;
+    /* padding-top: 5%; */
+    /* flex-shrink: 3; */
+    /* height: 20%; */
+    width: 20rem;
 }
 
 .s-border {
@@ -38,14 +39,24 @@
     width: auto;
 }
 
-.button {
+.sub-button {
+    background-color: #000000;
+    color: white;
+    font-size: 15px;
+    /* padding: 10px 60px; */
+    border-radius: 5px;
+    /* margin: 0px 0px; */
+    margin: auto;
+    cursor: pointer;
+    margin-bottom: 5%;
+    display: flex;
     align-self: center;
     text-align: center;
     justify-content: center;
     position: relative;
 }
 
-.button:hover {
+.s-button:hover {
     background-color: darkslategrey;
     color:aqua;
 }
@@ -57,7 +68,8 @@
     flex-flow: row wrap;
     display: flex;
     /* margin: 0.5rem; */
-    margin-top: 0px;
+    margin-top: 1%;
     margin-bottom: 10px;
     flex-shrink: 3;
+    margin: auto;
 }

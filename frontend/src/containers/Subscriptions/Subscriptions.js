@@ -9,10 +9,7 @@ const SubscriptionList = () => {
     const [posts1, setPosts1] = useState([])
     const [count, setCount] = useState(0);
     const [offset, setOffset] = useState(0);
-
-    // useEffect(() => {
-    //     getSubscriptionList();
-    // }, []);
+    const [msg, setMsg] = useState("")
 
     useEffect(() => {
         const getSubscriptionList = async () => {
@@ -44,9 +41,13 @@ const SubscriptionList = () => {
         };
         axios.patch(`http://localhost:8000/subscriptions/edit/`, {"cancelled": true}, config)
         .then(res => {
+            setMsg("Successfully cancelled")
             console.log(res);
         })
-
+        .catch(err => {
+            setMsg("Please log in to cancel")
+        }
+        )
     }
 
     // const getSubscriptionList = async () => {
@@ -69,8 +70,8 @@ const SubscriptionList = () => {
             <div>
                 <h3 className='title'>Subscription Plan Options:</h3>
                 <div className='subs'>
-                    {posts1.map((posts1, i) => (
-                        <Subscription key_num={i} price={posts1.price} occurance={posts1.occurance}/>
+                    {posts1.map((posts1) => (
+                        <Subscription key_num={posts1.pk} price={posts1.price} occurance={posts1.occurance}/>
                     ))}
                 </div>               
             <Pagination className='page'
@@ -82,8 +83,8 @@ const SubscriptionList = () => {
             <div>
                 <button onClick={handleClick} type='button' className='unsub-button'>Cancel current plan</button>
             </div>
+                <h4>{msg}</h4>
             </div>
-            
         )
     }
 };

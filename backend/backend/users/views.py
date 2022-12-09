@@ -167,8 +167,8 @@ class GetUserNextPaymentApiView(APIView):
 
         response_data = {
             # "payment plan": curr_subscription_instance.parent_subscription.pk,
-            "next payment due": curr_subscription_instance.renewal_date,
-            "amount due": curr_subscription.price,
+            "next_payment_due": curr_subscription_instance.renewal_date,
+            "amount_due": curr_subscription.price,
             "cancelled": curr_subscription_instance.cancelled
         }
 
