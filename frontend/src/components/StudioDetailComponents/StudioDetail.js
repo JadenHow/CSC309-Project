@@ -14,7 +14,7 @@ const StudioDetail = ({ name, phone_number, address, postal_code, latitude, long
                 </div>
                 <div className="sd-right">
                     <h1 className="sd-title">{name}</h1>
-                    <h2><a className="sd-title" href={`https://www.google.com/maps/place/(${latitude}, ${longitude})`}>{address}</a></h2>
+                    <h2><a className="sd-title" href={`https://www.google.com/maps/place/(${latitude}, ${longitude})`} target="_blank" rel="noreferrer">{address}</a></h2>
                     <h2 className="sd-title">{postal_code}</h2>
                     <h2 className="sd-title">{phone_number}</h2>
                     <h1>Amenities:</h1>
