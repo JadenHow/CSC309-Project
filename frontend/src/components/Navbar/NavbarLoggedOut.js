@@ -29,6 +29,9 @@ const Navbar = ({isAuthenticated}) => {
                     <NavLink to='/findstudio'>
                         Find a Studio Near Me
                     </NavLink>
+                    <NavLink to='/mapstudio'>
+                        Locations
+                    </NavLink>
                     <NavLink to='/subscriptions'>
                         Subscription Plan
                     </NavLink>
