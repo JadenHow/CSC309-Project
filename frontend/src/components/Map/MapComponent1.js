@@ -25,7 +25,7 @@ const Map = () => {
         navigate(`/studios/${pk}/`);
     }
 
-    const center = useMemo(() => ({lat: 44, lng: -80}), [])
+    const center = useMemo(() => ({lat: 43.6532, lng: -79.3832}), [])
     // console.log(center);
 
     const [posts1, setPosts] = useState([])

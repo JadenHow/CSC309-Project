@@ -71,10 +71,11 @@ const EditUser = () => {
             "first_name": formData.first_name,
             "last_name": formData.last_name,
             "phone_number": formData.phone_number,
-            "credit_card_number": formData.credit_card_number,
+            "credit_card_number": formData.creditcard,
             "avatar": file
         }
 
+        console.log(body);
         try {
             console.log(formData)
             await axios.patch(`http://localhost:8000/users/edit/`, body, config);

@@ -27,7 +27,7 @@ const Subscription = ({key_num, price, occurance }) => {
                 .catch(res => { // update subscriptions if already subbed
                     // console.log("error, will try updating instead", res);
                     // setMessage({ msg: res.data["msg"] });
-                    setMessage(res.response.data.msg)
+                    setMessage({ msg: res.response.data.msg})
                     axios.patch(`http://localhost:8000/subscriptions/edit/`, { "parent_subscription": key_num }, config)
                         .then(res => {
                             // console.log(res);

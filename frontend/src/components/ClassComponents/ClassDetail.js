@@ -64,7 +64,6 @@ const ClassDetail = ({ pk, name, description, coach, keywords, capacity, current
                 <h3>Coach: {coach}</h3>
                 <h3>Keywords: {keywords}</h3>
                 <h3>Capacity: {capacity}</h3>
-                <h3>Currently Enrolled: {currently_enrolled}</h3>
                 <h3>Class Date: {class_date}</h3>
                 <h3>Start Time: {start_time}</h3>
                 <h3>End Time: {end_time}</h3>

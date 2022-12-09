@@ -69,7 +69,7 @@ class DropAPIView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     def post(self, request, studio_id, class_id):
-        if not ClassInstances.objects.filter(parent_class=class_id, studio=studio_id).exists:
+        if not ClassInstances.objects.filter(parent_class=class_id).exists:
             return Response({"msg" : "Class doesn't exist"}, status=404)
 
         print(class_id, request.user.id)
@@ -159,7 +159,7 @@ class DropMultipleAPIView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     def post(self, request, studio_id, class_id):
-        if not ClassInstances.objects.filter(parent_class=class_id, studio=studio_id).exists:
+        if not ClassInstances.objects.filter(parent_class=class_id).exists:
             return Response({"msg" : "Class doesn't exist"}, status=404)
         
         class_instance = get_object_or_404(ClassInstances, pk=class_id)

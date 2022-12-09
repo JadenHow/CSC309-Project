@@ -6,9 +6,10 @@ export const Nav = styled.nav`
     background: #222;
     /* height: ${(props) => (props.extendNavbar ? "100vh" : '80px')}; */
     height: 80px;
+    /* width: 88%; */
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem calc((80vw - 1000px) / 2);
+    padding: 0.5rem calc((70vw - 1000px) / 2);
     z-index: 999;
 `;
 
@@ -18,6 +19,20 @@ export const NavLink = styled(Link)`
     align-items: center;
     text-decoration: none;
     padding: 0 1rem;
+    cursor: pointer;
+
+    &.active {
+        color: #15cdfc;
+    }
+`;
+
+export const NavLinkIcon = styled(Link)`
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1rem;
+    padding-right: 6rem;
     cursor: pointer;
 
     &.active {

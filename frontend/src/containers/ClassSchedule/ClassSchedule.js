@@ -28,6 +28,7 @@ function ClassSchedule({isAuthenticated}) {
                     setPosts(res.data.results)
                     setCount(res.data.count)
                     setLoading(false)
+                    console.log(res.data.results);
                 })
                 .catch(err => {
                     setLoading(false)
@@ -45,7 +46,7 @@ function ClassSchedule({isAuthenticated}) {
             <div>
                 <div>
                     {posts.map((posts, i) => (
-                        <ClassScheduleComponents key={i} pk={posts.pk} name={posts.name} studio={posts.studio} description={posts.description} coach={posts.coach} keywords={posts.keywords} capacity={posts.capacity} currently_enrolled={posts.currently_enrolled} class_date={posts.class_date} start_time={posts.start_time} end_time={posts.end_time} />
+                        <ClassScheduleComponents key={i} pk={posts.pk} name={posts.name} studio={posts.studio} description={posts.description} coach={posts.coach} keywords={posts.keywords} capacity={posts.capacity} class_date={posts.class_date} start_time={posts.start_time} end_time={posts.end_time} />
                     ))}
                 </div>
                 <br />

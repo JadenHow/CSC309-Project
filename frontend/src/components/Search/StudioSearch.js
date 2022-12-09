@@ -35,9 +35,9 @@ function AmenityHit({ hit }) {
     return (
         <div className="s-border" style={{ cursor: 'pointer' }} onClick={handleClick}>
             <div className="s-content">
-                <h2>{hit.studio}</h2>
-                <h4><Highlight attribute="type" hit={hit} /></h4>
+                <h2><Highlight attribute="type" hit={hit} /></h2>
                 <h4>{hit.quantity}</h4>
+                <h5>Click for more details</h5>
             </div>
         </div>
     );
@@ -60,7 +60,7 @@ const AmenitiesSearch = () => {
         <InstantSearch searchClient={searchClient} indexName="backend_StudioAmenities">
             <Configure hitsPerPage={10} />
             <br />
-            Search for Studios: <SearchBox />
+            Search for Amenities: <SearchBox />
             <Hits hitComponent={AmenityHit} />
             <Pagination></Pagination>
         </InstantSearch>
